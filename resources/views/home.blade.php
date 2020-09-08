@@ -1,1 +1,1 @@
-Test view
+@extends('layouts.index')
