@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45db95aa-7e04-4d99-8d85-fb8d452b0640" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/index/content.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +155,7 @@
       <option name="presentableId" value="Default" />
       <updated>1599587367544</updated>
       <workItem from="1599587368679" duration="220000" />
-      <workItem from="1599587607569" duration="3735000" />
+      <workItem from="1599587607569" duration="4982000" />
     </task>
     <servers />
   </component>
@@ -173,6 +175,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="696" y="354" width="584" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599591914387">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="696" y="354" width="584" height="396" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1599591914387" />
     <state x="797" y="298" width="374" height="510" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1599587893740">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
