@@ -1,8 +1,8 @@
-<nav class="navbar navbar-light" style="background-color: #a1f19a;">
+<nav class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between">
         <a class="navbar-brand" href="/">Shop</a>
 
-        <button type="button" class="btn btn-outline-primary float-right">
+        <button type="button" class="btn btn-light collapsed float-right">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
