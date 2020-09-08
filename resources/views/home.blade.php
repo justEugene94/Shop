@@ -1,3 +1,9 @@
 @extends('layouts.index')
 
-@extends('layouts.header')
+@section('header')
+    @include('layouts.header')
+@endsection
+
+@section('footer')
+    @include('layouts.footer')
+@endsection
