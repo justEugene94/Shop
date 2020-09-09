@@ -4,10 +4,14 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Goods;
+
 class IndexController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $goods = Goods::query()->paginate(9);
+
+        return view('home', ['goods' => $goods]);
     }
 }
