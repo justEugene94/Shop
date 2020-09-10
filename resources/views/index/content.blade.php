@@ -1,7 +1,7 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
-            @foreach($goods as $good)
+            @foreach($goods as $product)
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
                         <img
@@ -11,11 +11,12 @@
                             alt="">
                         <div class="card-body">
                             <p class="card-text">
-                                {{ $good->title }}
+                                {{ $product->title }}
                             </p>
+                            <h4>$ {{ $product->price }}</h4>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('product', ['goods_id' => $good->id]) }}" role="button">Show</a>
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('product', ['goods_id' => $product->id]) }}" role="button">Show</a>
                                     <a class="btn btn-sm btn-outline-secondary" href="#" role="button">Buy</a>
                                 </div>
                             </div>

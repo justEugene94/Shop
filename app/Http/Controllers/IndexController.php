@@ -17,6 +17,8 @@ class IndexController extends Controller
 
     public function show(int $goods_id)
     {
-        return view('product');
+        $product = Goods::query()->findOrFail($goods_id);
+
+        return view('product', ['product' => $product]);
     }
 }
