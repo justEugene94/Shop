@@ -15,8 +15,8 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Show</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Buy</button>
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('product', ['goods_id' => $good->id]) }}" role="button">Show</a>
+                                    <a class="btn btn-sm btn-outline-secondary" href="#" role="button">Buy</a>
                                 </div>
                             </div>
                         </div>

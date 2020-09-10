@@ -14,4 +14,9 @@ class IndexController extends Controller
 
         return view('home', ['goods' => $goods]);
     }
+
+    public function show(int $goods_id)
+    {
+        return view('product');
+    }
 }

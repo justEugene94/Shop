@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between">
-        <a class="navbar-brand" href="/">Shop</a>
+        <a class="navbar-brand" href="{{ route('home') }}">Shop</a>
 
         <button type="button" class="btn btn-light collapsed float-right">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor"
