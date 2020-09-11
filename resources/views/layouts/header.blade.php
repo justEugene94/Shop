@@ -11,7 +11,7 @@
                 </svg>
             </button>
             <div class="dropdown-content">
-                <h5 class="modal-title"><norb>Your cart is empty</norb></h5>
+                <h5 class="modal-title">Your cart is empty</h5>
                 <p>Time to start shopping</p>
             </div>
 

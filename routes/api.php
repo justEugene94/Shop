@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/** @var Route $router */
+
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+$router->group(['middleware' => ['web']], function () use ($router) {
+
+    /** Add to Cart */
+    $router->post('/products/{goods_id}/add-to-cart', ['as' => 'products.add-to-cart', 'uses' => 'Api\CartController@add']);
 });

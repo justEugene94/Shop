@@ -16,8 +16,13 @@
                             <h4>$ {{ $product->price }}</h4>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('product', ['goods_id' => $product->id]) }}" role="button">Show</a>
-                                    <a class="btn btn-sm btn-outline-secondary" href="#" role="button">Buy</a>
+                                    <a class="btn btn-sm btn-outline-secondary"
+                                       href="{{ route('product', ['goods_id' => $product->id]) }}"
+                                       role="button">Show</a>
+                                    <form action="{{ route('products.add-to-cart', ['goods_id' => $product->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Buy</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
