@@ -6,8 +6,10 @@
                 <h3 class="card-title">{{ $product->title }}</h3>
                 <h4>$ {{ $product->price }}</h4>
                 <p class="card-text">{{ $product->description }}</p>
-                <a class="btn btn-sm btn-outline-secondary"
-                   href="{{ route('products.add-to-cart', ['goods_id' => $product->id]) }}" role="button">Buy</a>
+                <form action="{{ route('products.add-to-cart', ['goods_id' => $product->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Buy</button>
+                </form>
             </div>
         </div>
         <!-- /.card -->
