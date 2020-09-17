@@ -46,6 +46,6 @@ class CartController extends Controller
         $price += $product->price;
         $request->session()->put('price', $price);
 
-        return redirect()->back()->with('qty', $qty);
+        return response("({$qty})", 200);
     }
 }

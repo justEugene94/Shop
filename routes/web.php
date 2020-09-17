@@ -20,3 +20,6 @@ $router->get('/', ['as' => 'home', 'uses' => 'IndexController@index']);
 
 /** Product */
 $router->get('/products/{goods_id}', ['as' => 'product', 'uses' => 'IndexController@show']);
+
+/** Add to Cart */
+$router->post('/products/{goods_id}/add-to-cart', ['as' => 'products.add-to-cart', 'uses' => 'Api\CartController@add']);
