@@ -29,45 +29,28 @@
                             <label class="product-line-price">Total</label>
                         </div>
 
+                        @foreach(session()->get('cart') as $id => $product)
+
                         <div class="product">
                             <div class="product-image">
                                 <img class="card-img-top img-fluid" src="http://placehold.it/200x200" alt="">
                             </div>
                             <div class="product-details">
-                                <div class="product-title">Nike Flex Form TR Women's Sneaker</div>
+                                <div class="product-title">{{ $product['name'] }}</div>
                             </div>
-                            <div class="product-price">12.99</div>
+                            <div class="product-price">{{ $product['price'] }}</div>
                             <div class="product-quantity">
-                                <input type="number" value="2" min="1">
+                                <input type="number" value="{{ $product['quantity'] }}" min="1">
                             </div>
                             <div class="product-removal">
                                 <button class="remove-product">
                                     Remove
                                 </button>
                             </div>
-                            <div class="product-line-price">25.98</div>
+                            <div class="product-line-price">{{ $product['total'] }}</div>
                         </div>
 
-                        <div class="product">
-                            <div class="product-image">
-                                <img src="images/adidas.jpg">
-                            </div>
-                            <div class="product-details">
-                                <div class="product-title">ULTRABOOST UNCAGED SHOES</div>
-                                <p class="product-description">Born from running culture, these men's shoes deliver the
-                                    freedom of a cage-free design</p>
-                            </div>
-                            <div class="product-price">45.99</div>
-                            <div class="product-quantity">
-                                <input type="number" value="1" min="1">
-                            </div>
-                            <div class="product-removal">
-                                <button class="remove-product">
-                                    Remove
-                                </button>
-                            </div>
-                            <div class="product-line-price">45.99</div>
-                        </div>
+                        @endforeach
 
                         <div class="totals">
                             <div class="totals-item">

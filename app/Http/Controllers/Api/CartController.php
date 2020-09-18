@@ -20,20 +20,23 @@ class CartController extends Controller
                     'name' => $product->title,
                     'price' => $product->price,
                     'quantity' => 1,
+                    'total' => $product->price,
                 ],
             ];
 
             $request->session()->put('cart', $cart);
         } elseif ($request->session()->has("cart.{$goods_id}")) {
             $cart = session()->get('cart');
-            $cart[$goods_id]['quantity']++;
+            $quantity = ++$cart[$goods_id]['quantity'];
+            $cart[$goods_id]['total'] = $quantity * $product->price;
             session()->put('cart', $cart);
         } else {
             $cart = $request->session()->get('cart');
             $cart[$goods_id] = [
                 'name' => $product->title,
                 'price' => $product->price,
-                'quantity' => 1
+                'quantity' => 1,
+                'total' => $product->price,
             ];
             $request->session()->put('cart', $cart);
         }
