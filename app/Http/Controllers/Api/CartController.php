@@ -15,14 +15,7 @@ class CartController extends Controller
         $product = Goods::query()->findOrFail($goods_id);
 
         if (!$request->session()->has('cart')) {
-            $cart = [
-                $goods_id => [
-                    'name' => $product->title,
-                    'price' => $product->price,
-                    'quantity' => 1,
-                    'total' => $product->price,
-                ],
-            ];
+            $cart = $this->addProductInCartArray($product);
 
             $request->session()->put('cart', $cart);
         } elseif ($request->session()->has("cart.{$goods_id}")) {
@@ -32,12 +25,7 @@ class CartController extends Controller
             session()->put('cart', $cart);
         } else {
             $cart = $request->session()->get('cart');
-            $cart[$goods_id] = [
-                'name' => $product->title,
-                'price' => $product->price,
-                'quantity' => 1,
-                'total' => $product->price,
-            ];
+            $cart = $this->addProductInCartArray($product);
             $request->session()->put('cart', $cart);
         }
 
@@ -52,6 +40,16 @@ class CartController extends Controller
         return response($this->htmlContent($product, $qty),200);
     }
 
+    private function addProductInCartArray(Goods $product, Array $cart = null) :array
+    {
+        return $cart[$product->id] = [
+            'name' => $product->title,
+            'price' => $product->price,
+            'quantity' => 1,
+            'total' => $product->price,
+        ];
+    }
+
     private function htmlContent(Goods $product, int $qty) :string
     {
        return "<div class='product'>
@@ -63,7 +61,7 @@ class CartController extends Controller
                     </div>
                     <div class='product-price'>{$product->price}</div>
                     <div class='product-quantity'>
-                        <input type='number' value='{$qty}' min='1'>
+                        <input type='number' value='1' min='1'>
                     </div>
                     <div class='product-removal'>
                         <button class='remove-product'>
