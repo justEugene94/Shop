@@ -9,11 +9,13 @@ jQuery(document).ready(function(){
         let url = `/products/${data.id}/add-to-cart`;
         $.ajax({
             type:'POST',
-            // data: {"csrf-token": data._token},
             url: url,
             headers: {'X-CSRF-TOKEN': data._token, '_method': 'post'},
-            success: function (res) {
-                $('.cart-total').text(res);
+            success: function (result) {
+                span = $('.cart-total')
+                qty = Number(span.text().match(/\d+/)[0]) + 1;
+                span.text("(" + qty + ")");
+                $('.product').after(result);
             }
         });
     });
