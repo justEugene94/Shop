@@ -49,6 +49,28 @@ class CartController extends Controller
         $price += $product->price;
         $request->session()->put('price', $price);
 
-        return response("({$qty})", 200);
+        return response($this->htmlContent($product, $qty),200);
+    }
+
+    private function htmlContent(Goods $product, int $qty) :string
+    {
+       return "<div class='product'>
+                    <div class='product-image'>
+                        <img class='card-img-top img-fluid' src='http://placehold.it/200x200' alt=''>
+                    </div>
+                    <div class='product-details'>
+                        <div class='product-title'>{$product->title}</div>
+                    </div>
+                    <div class='product-price'>{$product->price}</div>
+                    <div class='product-quantity'>
+                        <input type='number' value='{$qty}' min='1'>
+                    </div>
+                    <div class='product-removal'>
+                        <button class='remove-product'>
+                            Remove
+                        </button>
+                    </div>
+                    <div class='product-line-price'>{$product->price}</div>
+               </div>";
     }
 }
