@@ -19,6 +19,10 @@
                         <span class="text-muted">$ {{ $product['total'] }}</span>
                     </li>
                 @endforeach
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (USD)</span>
+                    <strong>{{ Session::get('price', 0) }}</strong>
+                </li>
             </ul>
 
             <form class="card p-2">
