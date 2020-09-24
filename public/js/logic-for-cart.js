@@ -20,6 +20,26 @@ jQuery(document).ready(function(){
         });
     });
 
+    $('.remove-product').click(function () {
+        let id = $(this).data('id');
+        $(this).parent().fadeOut('slow', function() {
+            $(this).remove();
+        });
+        $.ajax({
+            url: `/products/${id}/delete-from-cart`,
+            success: function (res) {
+                // $('.simpleCart_total').text(res.cart);
+                // $('.qty').text(res.qty);
+                // $('.price').text(res.price);
+                alert('Удалено');
+                console.log(res);
+            },
+            error: function () {
+                alert('Ошибка');
+            }
+        });
+    });
+
     function mapSerializeArray(unindexed_array) {
         let indexed_array = {};
         $.map(unindexed_array, function (n, i) {

@@ -43,7 +43,7 @@
                                 <input type="number" value="{{ $product['quantity'] }}" min="1">
                             </div>
                             <div class="product-removal">
-                                <button class="remove-product">
+                                <button class="remove-product" data-id="{{ $product->id }}">
                                     Remove
                                 </button>
                             </div>
