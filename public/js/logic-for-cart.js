@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 
-    $('form').submit(function (e) {
+    $('.create').submit(function (e) {
         e.preventDefault();
 
         let values = $(this).serializeArray();
@@ -20,23 +20,23 @@ jQuery(document).ready(function(){
         });
     });
 
-    $('.remove-product').click(function () {
-        let id = $(this).data('id');
-        $(this).parent().fadeOut('slow', function() {
+    $('.delete').submit(function (e) {
+        e.preventDefault();
+
+        let values = $(this).serializeArray();
+        let data = mapSerializeArray(values);
+
+        $(this).parent().parent().fadeOut('slow', function() {
             $(this).remove();
         });
         $.ajax({
-            url: `/products/${id}/delete-from-cart`,
+            url: `/products/${data.id}/delete-from-cart`,
+            type: 'DELETE',
+            headers: {'X-CSRF-TOKEN': data._token, '_method': 'delete'},
             success: function (res) {
-                // $('.simpleCart_total').text(res.cart);
-                // $('.qty').text(res.qty);
-                // $('.price').text(res.price);
-                alert('Удалено');
-                console.log(res);
+                $('.cart-total').text("(" + res.qty + ")");
+                $('#cart-total').text(res.price);
             },
-            error: function () {
-                alert('Ошибка');
-            }
         });
     });
 

@@ -6,7 +6,7 @@
                 <h3 class="card-title">{{ $product->title }}</h3>
                 <h4>$ {{ $product->price }}</h4>
                 <p class="card-text">{{ $product->description }}</p>
-                <form action="" method="POST">
+                <form class="create" action="" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="{{ $product->id }}">
                     <button type="submit" class="btn btn-sm btn-outline-secondary">Buy</button>

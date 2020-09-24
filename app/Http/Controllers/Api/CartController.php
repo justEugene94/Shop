@@ -7,12 +7,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Goods;
 use Illuminate\Http\Request;
+use Ramsey\Collection\Exception\NoSuchElementException;
 
 class CartController extends Controller
 {
     public function add(Request $request, int $goods_id)
     {
         $product = Goods::query()->findOrFail($goods_id);
+
 
         if (!$request->session()->has('cart')) {
             $cart = $this->addProductInCartArray($product);
@@ -25,7 +27,7 @@ class CartController extends Controller
             session()->put('cart', $cart);
         } else {
             $cart = $request->session()->get('cart');
-            $cart = $this->addProductInCartArray($product);
+            $cart = $this->addProductInCartArray($product, $cart);
             $request->session()->put('cart', $cart);
         }
 
@@ -40,14 +42,44 @@ class CartController extends Controller
         return response($this->htmlContent($product, $qty),200);
     }
 
-    private function addProductInCartArray(Goods $product, Array $cart = null) :array
+    public function delete(Request $request, int $goods_id)
     {
-        return $cart[$product->id] = [
+        $product = Goods::query()->findOrFail($goods_id);
+
+        if (!$request->session()->exists("cart.{$product->id}"))
+        {
+            throw new NoSuchElementException('No such element in session');
+        }
+
+        $productQty = $request->session()->get("cart.{$product->id}.quantity");
+        $productPriceTotal = $request->session()->get("cart.{$product->id}.total");
+        $oldPrice = $request->session()->get("price");
+        $oldQty = $request->session()->get("qty");
+
+        $request->session()->pull("cart.{$product->id}");
+
+        $price = $oldPrice - $productPriceTotal;
+        $qty = $oldQty - $productQty;
+
+        $request->session()->put('price', $price);
+        $request->session()->put('qty', $qty);
+
+        return response([
+            'price' => $price,
+            'qty' => $qty,
+        ], 200);
+    }
+
+    private function addProductInCartArray(Goods $product, Array $cart = []) :array
+    {
+        $cart[$product->id] = [
             'name' => $product->title,
             'price' => $product->price,
             'quantity' => 1,
             'total' => $product->price,
         ];
+
+        return $cart;
     }
 
     private function htmlContent(Goods $product, int $qty) :string

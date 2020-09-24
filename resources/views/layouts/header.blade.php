@@ -43,9 +43,13 @@
                                 <input type="number" value="{{ $product['quantity'] }}" min="1">
                             </div>
                             <div class="product-removal">
-                                <button class="remove-product" data-id="{{ $product->id }}">
-                                    Remove
-                                </button>
+                                <form class="delete" action="" method="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="id" value="{{ $id }}">
+                                    <button type="submit" class="remove-product">
+                                        Remove
+                                    </button>
+                                </form>
                             </div>
                             <div class="product-line-price">{{ $product['total'] }}</div>
                         </div>
@@ -53,21 +57,9 @@
                         @endforeach
 
                         <div class="totals">
-                            <div class="totals-item">
-                                <label>Subtotal</label>
-                                <div class="totals-value" id="cart-subtotal">71.97</div>
-                            </div>
-                            <div class="totals-item">
-                                <label>Tax (5%)</label>
-                                <div class="totals-value" id="cart-tax">3.60</div>
-                            </div>
-                            <div class="totals-item">
-                                <label>Shipping</label>
-                                <div class="totals-value" id="cart-shipping">15.00</div>
-                            </div>
                             <div class="totals-item totals-item-total">
-                                <label>Grand Total</label>
-                                <div class="totals-value" id="cart-total">90.57</div>
+                                <label>Total</label>
+                                <div class="totals-value" id="cart-total">{{ Session::get('price', 0) }}</div>
                             </div>
                         </div>
 

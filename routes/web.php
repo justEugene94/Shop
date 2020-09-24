@@ -16,10 +16,25 @@ use Illuminate\Support\Facades\Route;
 /** @var Route $router */
 
 /** Home */
-$router->get('/', ['as' => 'home', 'uses' => 'IndexController@index']);
+$router->get('/', [
+    'as' => 'home',
+    'uses' => 'IndexController@index'
+]);
 
 /** Product */
-$router->get('/products/{goods_id}', ['as' => 'product', 'uses' => 'IndexController@show']);
+$router->get('/products/{goods_id}', [
+    'as' => 'product',
+    'uses' => 'IndexController@show'
+]);
 
 /** Add to Cart */
-$router->post('/products/{goods_id}/add-to-cart', ['as' => 'products.add-to-cart', 'uses' => 'Api\CartController@add']);
+$router->post('/products/{goods_id}/add-to-cart', [
+    'as' => 'products.add-to-cart',
+    'uses' => 'Api\CartController@add'
+]);
+
+/** Delete from Cart */
+$router->delete('/products/{goods_id}/delete-from-cart', [
+    'as' => 'products.delete-from-cart',
+    'uses' => 'Api\CartController@delete'
+]);
