@@ -27,6 +27,12 @@ $router->get('/products/{goods_id}', [
     'uses' => 'IndexController@show'
 ]);
 
+/** Checkout */
+$router->get('/checkout', [
+    'as' => 'checkout',
+    'uses' => 'CheckoutController@index'
+]);
+
 /** Add to Cart */
 $router->post('/products/{goods_id}/add-to-cart', [
     'as' => 'products.add-to-cart',

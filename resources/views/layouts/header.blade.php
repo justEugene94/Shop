@@ -63,7 +63,8 @@
                             </div>
                         </div>
 
-                        <button class="checkout">Checkout</button>
+{{--                        <button class="checkout" onclick="{!! route('checkout') !!}">Checkout</button>--}}
+                        <a class="checkout" href="{{ route('checkout') }}">Checkout</a>
 
                     </div>
                 @endif
