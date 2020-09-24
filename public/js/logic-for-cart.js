@@ -12,10 +12,9 @@ jQuery(document).ready(function(){
             url: url,
             headers: {'X-CSRF-TOKEN': data._token, '_method': 'post'},
             success: function (result) {
-                span = $('.cart-total')
-                qty = Number(span.text().match(/\d+/)[0]) + 1;
-                span.text("(" + qty + ")");
-                $('.product').after(result);
+                $('.cart-total').text("(" + result.qty + ")");
+                $('#cart-total').text(result.price);
+                $('.product').after(result.div);
             }
         });
     });
@@ -33,9 +32,9 @@ jQuery(document).ready(function(){
             url: `/products/${data.id}/delete-from-cart`,
             type: 'DELETE',
             headers: {'X-CSRF-TOKEN': data._token, '_method': 'delete'},
-            success: function (res) {
-                $('.cart-total').text("(" + res.qty + ")");
-                $('#cart-total').text(res.price);
+            success: function (result) {
+                $('.cart-total').text("(" + result.qty + ")");
+                $('#cart-total').text(result.price);
             },
         });
     });

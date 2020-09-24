@@ -39,7 +39,11 @@ class CartController extends Controller
         $price += $product->price;
         $request->session()->put('price', $price);
 
-        return response($this->htmlContent($product, $qty),200);
+        return response([
+            'div' => $this->htmlContent($product, $qty),
+            'qty' => $qty,
+            'price' => $price,
+        ],200);
     }
 
     public function delete(Request $request, int $goods_id)
