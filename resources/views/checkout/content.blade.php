@@ -10,7 +10,7 @@
                 <span class="badge badge-secondary badge-pill">{{ Session::get('qty', 0) }}</span>
             </h4>
             <ul class="list-group mb-3">
-                @foreach(Session::get('cart') as $id => $product)
+                @forelse (Session::get('cart') ?: [] as $id => $product)
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
                             <h6 class="my-0">{{ $product['name'] }}</h6>
@@ -18,7 +18,8 @@
                         </div>
                         <span class="text-muted">$ {{ $product['total'] }}</span>
                     </li>
-                @endforeach
+                @empty
+                @endforelse
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Total (USD)</span>
                     <strong>{{ Session::get('price', 0) }}</strong>
