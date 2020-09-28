@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b201037829aee662f8aab57ae07cee90",
+    "content-hash": "d0c0458cd7bf0aa562d0e4f09f6d9d59",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1117,58 +1117,6 @@
             ],
             "description": "Mime-type detection for Flysystem",
             "time": "2020-08-09T10:34:01+00:00"
-        },
-        {
-            "name": "lis-dev/nova-poshta-api-2",
-            "version": "0.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lis-dev/nova-poshta-api-2.git",
-                "reference": "dfb37c9394dc055672ee778001a27cb784a42f54"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lis-dev/nova-poshta-api-2/zipball/dfb37c9394dc055672ee778001a27cb784a42f54",
-                "reference": "dfb37c9394dc055672ee778001a27cb784a42f54",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "LisDev\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Igor Ivashchenko",
-                    "homepage": "https://github.com/lis-dev/nova-poshta-api-2",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Team",
-                    "homepage": "https://github.com/lis-dev/nova-poshta-api-2/graphs/contributors",
-                    "role": "Contributors"
-                }
-            ],
-            "description": "PHP class for API 2.0 ukrainian delivery company \"Nova Poshta\"",
-            "homepage": "https://github.com/lis-dev/",
-            "keywords": [
-                "delivery",
-                "delivery service",
-                "nova poshta",
-                "nova poshta api"
-            ],
-            "time": "2020-09-17T22:31:27+00:00"
         },
         {
             "name": "monolog/monolog",
