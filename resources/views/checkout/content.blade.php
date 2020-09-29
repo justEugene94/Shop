@@ -76,57 +76,24 @@
 
                 <h4 class="mb-3">Pickup from Nova Poshta</h4>
 
-                <div class="mb-3">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                </div>
-
                 <div class="row">
-                    <div class="col-md-5 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label for="city">City</label>
-                        <select class="custom-select d-block w-100" id="city" required>
-                            <option value="">Choose...</option>
-                            <option>United States</option>
-                        </select>
+                        <input type="text" class="form-control" id="city" required>
                         <div class="invalid-feedback">
-                            Please select a valid country.
+                            Please enter your city.
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="state">State</label>
-                        <select class="custom-select d-block w-100" id="state" required>
+                    <div class="col-md-6 mb-3">
+                        <label for="department">Department</label>
+                        <select class="custom-select d-block w-100" id="department" required>
                             <option value="">Choose...</option>
                             <option>California</option>
                         </select>
                         <div class="invalid-feedback">
-                            Please provide a valid state.
+                            Please provide a valid department.
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Zip code required.
-                        </div>
-                    </div>
-                </div>
-                <hr class="mb-4">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="same-address">
-                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
-                        address</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="save-info">
-                    <label class="custom-control-label" for="save-info">Save this information for next time</label>
                 </div>
                 <hr class="mb-4">
 
