@@ -44,3 +44,9 @@ $router->delete('/products/{goods_id}/delete-from-cart', [
     'as' => 'products.delete-from-cart',
     'uses' => 'Api\CartController@delete'
 ]);
+
+/** Get Areas From Nova Poshta */
+$router->post('/nova-poshta/warehouses', [
+    'as' => 'nova-poshta.warehouses',
+    'uses' => 'Api\NovaPoshtaController@getWarehouses',
+]);
