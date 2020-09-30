@@ -20,7 +20,6 @@
                                        href="{{ route('product', ['goods_id' => $product->id]) }}"
                                        role="button">Show</a>
                                     <form class="create" action="" method="POST">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="id" value="{{ $product->id }}">
                                         <button type="submit" class="btn btn-sm btn-outline-secondary">Buy</button>
                                     </form>

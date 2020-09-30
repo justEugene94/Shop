@@ -5,12 +5,13 @@ jQuery(document).ready(function(){
 
         let values = $(this).serializeArray();
         let data = mapSerializeArray(values);
+        let token = $('meta[name="csrf-token"]').attr('content');
 
         let url = `/products/${data.id}/add-to-cart`;
         $.ajax({
             type:'POST',
             url: url,
-            headers: {'X-CSRF-TOKEN': data._token, '_method': 'post'},
+            headers: {'X-CSRF-TOKEN': token, '_method': 'post'},
             success: function (result) {
                 $('.cart-total').text("(" + result.qty + ")");
                 $('#cart-total').text(result.price);
@@ -24,6 +25,7 @@ jQuery(document).ready(function(){
 
         let values = $(this).serializeArray();
         let data = mapSerializeArray(values);
+        let token = $('meta[name="csrf-token"]').attr('content');
 
         $(this).parent().parent().fadeOut('slow', function() {
             $(this).remove();
@@ -31,7 +33,7 @@ jQuery(document).ready(function(){
         $.ajax({
             url: `/products/${data.id}/delete-from-cart`,
             type: 'DELETE',
-            headers: {'X-CSRF-TOKEN': data._token, '_method': 'delete'},
+            headers: {'X-CSRF-TOKEN': token, '_method': 'delete'},
             success: function (result) {
                 $('.cart-total').text("(" + result.qty + ")");
                 $('#cart-total').text(result.price);

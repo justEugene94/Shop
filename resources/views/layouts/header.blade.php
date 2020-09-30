@@ -44,7 +44,6 @@
                             </div>
                             <div class="product-removal">
                                 <form class="delete" action="" method="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="hidden" name="id" value="{{ $id }}">
                                     <button type="submit" class="remove-product">
                                         Remove
