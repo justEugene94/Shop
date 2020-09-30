@@ -76,59 +76,41 @@
 
                 <h4 class="mb-3">Pickup from Nova Poshta</h4>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" required>
-                        <div class="invalid-feedback">
-                            Please enter your city.
-                        </div>
+
+                <div class="mb-3">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" required>
+                    <div class="invalid-feedback">
+                        Please enter your city.
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="department">Department</label>
-                        <select class="custom-select d-block w-100" id="department" required>
-                            <option value="">Choose...</option>
-                            <option>California</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please provide a valid department.
-                        </div>
+                </div>
+                <div class="mb-3">
+                    <label for="department">Department</label>
+                    <select class="custom-select d-block w-100" id="department" required>
+                        <option value="">Choose...</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please provide a valid department.
                     </div>
                 </div>
                 <hr class="mb-4">
 
                 <h4 class="mb-3">Payment</h4>
 
-                <div class="d-block my-3">
-                    <div class="custom-control custom-radio">
-                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked
-                               required>
-                        <label class="custom-control-label" for="credit">Credit card</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="debit">Debit card</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="paypal">Paypal</label>
+                <div class="mb-3">
+
+                    <label for="cc-name">Name on card</label>
+                    <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                    <small class="text-muted">Full name as displayed on card</small>
+                    <div class="invalid-feedback">
+                        Name on card is required
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-name">Name on card</label>
-                        <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                        <small class="text-muted">Full name as displayed on card</small>
-                        <div class="invalid-feedback">
-                            Name on card is required
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-number">Credit card number</label>
-                        <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Credit card number is required
-                        </div>
+                <div class="mb-3">
+                    <label for="cc-number">Credit card number</label>
+                    <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                    <div class="invalid-feedback">
+                        Credit card number is required
                     </div>
                 </div>
                 <div class="row">
