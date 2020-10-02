@@ -37,18 +37,21 @@
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" action="{{ route('checkout.store') }}" method="POST" novalidate>
+                @csrf
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">First name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                        <input name="first_name" type="text" class="form-control" id="firstName" placeholder=""
+                               value="{{ old('first_name') }}" required>
                         <div class="invalid-feedback">
                             Valid first name is required.
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName">Last name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                        <input name="last_name" type="text" class="form-control" id="lastName" placeholder=""
+                               value="{{ old('last_name') }}" required>
                         <div class="invalid-feedback">
                             Valid last name is required.
                         </div>
@@ -58,14 +61,15 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="mobile_phone">Mobile Phone</label>
-                        <input type="text" class="form-control" id="mobile_phone" placeholder="" value="" required>
+                        <input name="mobile_phone" type="text" class="form-control" id="mobile_phone" placeholder=""
+                               value="{{ old('mobile_phone') }}" required>
                         <div class="invalid-feedback">
                             Valid mobile phone is required.
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="" value="" required>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="" value="{{ old('email') }}" required>
                         <div class="invalid-feedback">
                             Please enter a valid email address for shipping updates.
                         </div>
@@ -79,14 +83,14 @@
 
                 <div class="mb-3">
                     <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" required>
+                    <input name="city" type="text" class="form-control" id="city" required>
                     <div class="invalid-feedback">
                         Please enter your city.
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="department">Department</label>
-                    <select class="custom-select d-block w-100" id="department" required>
+                    <select name="department" class="custom-select d-block w-100" id="department" required>
                         <option value="">Choose...</option>
                     </select>
                     <div class="invalid-feedback">
@@ -100,7 +104,7 @@
                 <div class="mb-3">
 
                     <label for="cc-name">Name on card</label>
-                    <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                    <input name="cc_name" type="text" class="form-control" id="cc-name" placeholder="" required>
                     <small class="text-muted">Full name as displayed on card</small>
                     <div class="invalid-feedback">
                         Name on card is required
@@ -108,7 +112,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="cc-number">Credit card number</label>
-                    <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                    <input name="cc_number" type="text" class="form-control" id="cc-number" placeholder="" required>
                     <div class="invalid-feedback">
                         Credit card number is required
                     </div>
@@ -116,14 +120,14 @@
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="cc-expiration">Expiration</label>
-                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                        <input name="cc_expiration" type="text" class="form-control" id="cc-expiration" placeholder="" required>
                         <div class="invalid-feedback">
                             Expiration date required
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="cc-expiration">CVV</label>
-                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                        <label for="cc-cvv">CVV</label>
+                        <input name="cc_ccv" type="text" class="form-control" id="cc-cvv" placeholder="" required>
                         <div class="invalid-feedback">
                             Security code required
                         </div>
