@@ -33,6 +33,11 @@ $router->get('/checkout', [
     'uses' => 'CheckoutController@index'
 ]);
 
+$router->post('/checkout/store', [
+    'as' => 'checkout.store',
+    'uses' =>  'CheckoutController@store'
+]);
+
 /** Add to Cart */
 $router->post('/products/{goods_id}/add-to-cart', [
     'as' => 'products.add-to-cart',
