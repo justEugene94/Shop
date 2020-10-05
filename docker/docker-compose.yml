@@ -3,6 +3,7 @@ version: '3'
 services:
   nginx:
     build: ./nginx
+    container_name: shop_nginx
     ports:
       - 80:80
       - 443:443
@@ -16,6 +17,7 @@ services:
 
   php:
     build: ./php
+    container_name: shop_php
     expose:
       - 9000
     links:
@@ -32,6 +34,7 @@ services:
 
   mysql:
     build: ./mysql
+    container_name: shop_mysql
     user: '${APP_USER}:1000'
     ports:
       - 3306:3306
@@ -48,6 +51,7 @@ services:
 
   workspace:
     build: ./workspace
+    container_name: shop_workspace
     user: '${APP_USER}:1000'
     tty: true
     links:
