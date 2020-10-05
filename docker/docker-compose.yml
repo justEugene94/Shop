@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www:cached
+    links:
+      - workspace
+      - php
+    networks:
+      - code-network
+
+  php:
+    build: ./php
+    expose:
+      - 9000
+    links:
+      - mysql
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www:cached
+    tty: true
+    stdin_open: true
+    environment:
+      XDEBUG_CONFIG: "remote_connect_back=1; remote_enable=1;"
+      PHP_IDE_CONFIG: "serverName=docker-server-mtd"
+    networks:
+      - code-network
+
+  mysql:
+    build: ./mysql
+    user: '${APP_USER}:1000'
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: shop
+      MYSQL_USER: shop
+      MYSQL_PASSWORD: shop
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - code-network
+
+  workspace:
+    build: ./workspace
+    user: '${APP_USER}:1000'
+    tty: true
+    links:
+      - mysql
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www:cached
+    networks:
+      - code-network
+
+networks:
+  code-network:
+    driver: bridge

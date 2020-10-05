@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `shop_loc` ;
-GRANT ALL ON `shop_loc`.* TO 'shop_loc'@'%' ;
+CREATE DATABASE IF NOT EXISTS `shop` ;
+GRANT ALL ON `shop`.* TO 'shop'@'%' ;
 
 USE shop_loc;
 
