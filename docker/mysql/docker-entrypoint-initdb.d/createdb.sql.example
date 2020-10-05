@@ -1,0 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `shop_loc` ;
+GRANT ALL ON `shop_loc`.* TO 'shop_loc'@'%' ;
+
+USE shop_loc;
+
+FLUSH PRIVILEGES ;
