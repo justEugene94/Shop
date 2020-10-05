@@ -42,18 +42,26 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">First name</label>
-                        <input name="first_name" type="text" class="form-control" id="firstName" placeholder=""
+                        <input name="first_name" type="text"
+                               class="form-control @error('first_name') is-invalid @enderror" id="firstName"
+                               placeholder=""
                                value="{{ old('first_name') }}" required>
                         <div class="invalid-feedback">
-                            Valid first name is required.
+                            @error('first_name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName">Last name</label>
-                        <input name="last_name" type="text" class="form-control" id="lastName" placeholder=""
+                        <input name="last_name" type="text"
+                               class="form-control @error('last_name') is-invalid @enderror" id="lastName"
+                               placeholder=""
                                value="{{ old('last_name') }}" required>
                         <div class="invalid-feedback">
-                            Valid last name is required.
+                            @error('last_name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -61,17 +69,25 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="mobile_phone">Mobile Phone</label>
-                        <input name="mobile_phone" type="text" class="form-control" id="mobile_phone" placeholder=""
+                        <input name="mobile_phone" type="text"
+                               class="form-control @error('mobile_phone') is-invalid @enderror" id="mobile_phone"
+                               placeholder=""
                                value="{{ old('mobile_phone') }}" required>
                         <div class="invalid-feedback">
-                            Valid mobile phone is required.
+                            @error('mobile_phone')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="email">Email</label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="" value="{{ old('email') }}" required>
+                        <input name="email" type="email" class="form-control  @error('email') is-invalid @enderror"
+                               id="email" placeholder=""
+                               value="{{ old('email') }}" required>
                         <div class="invalid-feedback">
-                            Please enter a valid email address for shipping updates.
+                            @error('email')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -83,18 +99,25 @@
 
                 <div class="mb-3">
                     <label for="city">City</label>
-                    <input name="city" type="text" class="form-control" id="city" required>
+                    <input name="city" type="text" class="form-control  @error('city') is-invalid @enderror" id="city"
+                           required>
                     <div class="invalid-feedback">
-                        Please enter your city.
+                        @error('city')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="department">Department</label>
-                    <select name="department" class="custom-select d-block w-100" id="department" required>
+                    <select name="department"
+                            class="custom-select d-block w-100 @error('department') is-invalid @enderror"
+                            id="department" required>
                         <option value="">Choose...</option>
                     </select>
                     <div class="invalid-feedback">
-                        Please provide a valid department.
+                        @error('department')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <hr class="mb-4">
@@ -104,32 +127,46 @@
                 <div class="mb-3">
 
                     <label for="cc-name">Name on card</label>
-                    <input name="cc_name" type="text" class="form-control" id="cc-name" placeholder="" required>
+                    <input name="cc_name" type="text" class="form-control @error('cc_name') is-invalid @enderror"
+                           id="cc-name" placeholder="" required>
                     <small class="text-muted">Full name as displayed on card</small>
                     <div class="invalid-feedback">
-                        Name on card is required
+                        @error('cc_name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="cc-number">Credit card number</label>
-                    <input name="cc_number" type="text" class="form-control" id="cc-number" placeholder="" required>
+                    <input name="cc_number" type="text" class="form-control  @error('cc_number') is-invalid @enderror"
+                           id="cc-number" placeholder="" required>
                     <div class="invalid-feedback">
-                        Credit card number is required
+                        @error('cc_number')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="cc-expiration">Expiration</label>
-                        <input name="cc_expiration" type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                        <input name="cc_expiration" type="text"
+                               class="form-control  @error('cc_expiration') is-invalid @enderror" id="cc-expiration"
+                               placeholder=""
+                               required>
                         <div class="invalid-feedback">
-                            Expiration date required
+                            @error('cc_expiration')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="cc-cvv">CVV</label>
-                        <input name="cc_ccv" type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                        <input name="cc_ccv" type="text" class="form-control  @error('cc_ccv') is-invalid @enderror"
+                               id="cc-cvv" placeholder="" required>
                         <div class="invalid-feedback">
-                            Security code required
+                            @error('cc_ccv')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
