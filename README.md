@@ -15,7 +15,21 @@ cp .env.example .env
 
 * #### Open and configure `.env` file
 
+* #### Build Docker
+
 ```bash
+sudo service nginx stop
+sudo service mysql stop
+
+cd docker/
+docker-compose up --build
+```
+
+* #### Install composer and seed the database
+
+```bash
+docker-compose exec workspace bash
+
 composer install
 
 php artisan key:generate
