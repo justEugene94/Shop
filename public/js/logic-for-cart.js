@@ -15,7 +15,9 @@ jQuery(document).ready(function(){
             success: function (result) {
                 $('.cart-total').text("(" + result.qty + ")");
                 $('#cart-total').text(result.price);
-                $('.product').after(result.div);
+                $('.dropdown-content').empty()
+                $('.dropdown-content').html(result.content)
+                // $('.product').after(result.div);
             }
         });
     });

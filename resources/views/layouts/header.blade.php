@@ -16,7 +16,7 @@
                     <h5 class="modal-title">Your shopping cart is empty</h5>
                     <p>Time to start shopping</p>
                 @else
-                    <h1>Shopping Cart</h1>
+                    <h2>Shopping Cart</h2>
 
                     <div class="shopping-cart">
 
@@ -62,7 +62,6 @@
                             </div>
                         </div>
 
-{{--                        <button class="checkout" onclick="{!! route('checkout') !!}">Checkout</button>--}}
                         <a class="checkout" href="{{ route('checkout') }}">Checkout</a>
 
                     </div>
