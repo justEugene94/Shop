@@ -19,6 +19,12 @@ class CheckoutController extends Controller
 
     public function store(StoreFormRequest $request)
     {
+        if (!$request->session()->get('cart') || empty($request->session()->get('cart')))
+        {
+//            throw new \InvalidArgumentException('No products in cart');
+            return redirect()->route('checkout')->with(['message' => 'No products in cart']);
+        }
+
         return '';
     }
 }

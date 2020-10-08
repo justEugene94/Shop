@@ -1,4 +1,10 @@
 <div class="container">
+    @if(Session::has('message'))
+        <div class="alert alert-danger">
+            {{ Session::get('message') }}
+        </div>
+    @endif
+
     <div class="py-5 text-center">
         <h2>Checkout form</h2>
     </div>
