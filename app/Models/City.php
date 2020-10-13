@@ -26,7 +26,7 @@ class City extends Model
     /**
      * @return HasMany
      */
-    public function np_departments()
+    public function npDepartments()
     {
         return $this->hasMany(NPDepartment::class, 'city_id', 'id');
     }
