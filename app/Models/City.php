@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -21,4 +22,12 @@ class City extends Model
         'np_id',
         'name',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function np_departments()
+    {
+        return $this->hasMany(NPDepartment::class, 'city_id', 'id');
+    }
 }
