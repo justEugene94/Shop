@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -27,4 +28,12 @@ class Customer extends Model
         'email',
         'stripe_customer_id',
     ];
+
+    /**
+     * @return BelongsToMany
+     */
+    public function npDepartments()
+    {
+        return $this->belongsToMany(NPDepartment::class, 'customer_np_department', 'customer_id', 'np_department_id');
+    }
 }
