@@ -17,7 +17,7 @@ jQuery(document).ready(function (e){
 
                 $.each(warehouses, function (key, value){
                     $('#department').append($("<option></option>")
-                        .attr("value", value['Ref'])
+                        .attr("value", value['DescriptionRu'])
                         .text(value['DescriptionRu']))
                 });
             }
