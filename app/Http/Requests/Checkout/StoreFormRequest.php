@@ -25,12 +25,12 @@ class StoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-//            "first_name" => "required|string|max:50|min:4",
-//            "last_name" => "required|string|max:50|min:4",
-//            "email" => "required|string|email",
-//            "mobile_phone" => "required|max:50|min:4|regex:/(38)[0-9]{10}/",
-//            "city" => "required|string|max:50|min:4",
-//            "department" => "required|string",
+            "first_name" => "required|string|max:50|min:4",
+            "last_name" => "required|string|max:50|min:4",
+            "email" => "required|string|email",
+            "mobile_phone" => "required|max:50|min:4|regex:/(38)[0-9]{10}/",
+            "city" => "required|string|max:50|min:4",
+            "department" => "required|string",
             "cc_name" => "required|string",
             "cc_number" => "required|string|regex:/[0-9]{16}/",
             "cc_exp_month" => "required|string||regex:/[0-9]{2}/",
