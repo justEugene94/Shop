@@ -172,7 +172,7 @@
                         <label for="cc-exp-year">Expiration Year</label>
                         <input name="cc_exp_year" type="text"
                                class="form-control  @error('cc_exp_year') is-invalid @enderror" id="cc-exp-year"
-                               placeholder="YY"
+                               placeholder="YYYY"
                                required>
                         <div class="invalid-feedback">
                             @error('cc_exp_year')

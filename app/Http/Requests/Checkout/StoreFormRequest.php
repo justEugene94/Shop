@@ -34,8 +34,18 @@ class StoreFormRequest extends FormRequest
             "cc_name" => "required|string",
             "cc_number" => "required|string|regex:/[0-9]{16}/",
             "cc_exp_month" => "required|string||regex:/[0-9]{2}/",
-            "cc_exp_year" => "required|string||regex:/[0-9]{2}/",
+            "cc_exp_year" => "required|string||regex:/[0-9]{4}/",
             "cc_ccv" => "required|string|regex:/[0-9]{3}/",
+        ];
+    }
+
+    public function getCard()
+    {
+        return [
+            'number' => $this->input('cc_number'),
+            'exp_month' => $this->input('cc_exp_month'),
+            'exp_year' => $this->input('cc_exp_year'),
+            'cvc' => $this->input('cc_ccv'),
         ];
     }
 }
