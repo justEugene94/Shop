@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\Checkout\StoreFormRequest;
-use App\Services\StripeService;
+use App\Services\StripeTokenService;
 use Illuminate\Contracts\View\View;
 use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
@@ -20,7 +20,7 @@ class CheckoutController extends Controller
         return view('checkout');
     }
 
-    public function store(StoreFormRequest $request, StripeService $stripeService)
+    public function store(StoreFormRequest $request, StripeTokenService $stripeService)
     {
         if (!$request->session()->get('cart') || empty($request->session()->get('cart')))
         {

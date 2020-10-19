@@ -6,8 +6,16 @@ namespace App\Services;
 use Stripe;
 use App\Models\Customer;
 
-class StripeUserService extends StripeService
+class StripeUserService
 {
+    /**
+     * StripeUserService constructor.
+     */
+    public function __construct()
+    {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+    }
+
     /**
      * @param Customer $customer
      *

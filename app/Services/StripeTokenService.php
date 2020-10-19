@@ -7,7 +7,7 @@ use Stripe\PaymentIntent;
 use Stripe\Stripe;
 use Stripe\Token;
 
-class StripeService
+class StripeTokenService
 {
     /**
      * StripeService constructor.
