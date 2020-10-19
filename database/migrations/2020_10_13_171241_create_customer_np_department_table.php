@@ -16,8 +16,8 @@ class CreateCustomerNpDepartmentTable extends Migration
         Schema::create('customer_np_department', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedInteger('customer_id');
-            $table->unsignedInteger('np_department_id');
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('np_department_id');
 
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('np_department_id')->references('id')->on('np_departments');

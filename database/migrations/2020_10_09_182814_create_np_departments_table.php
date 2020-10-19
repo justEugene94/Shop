@@ -16,7 +16,7 @@ class CreateNpDepartmentsTable extends Migration
         Schema::create('np_departments', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedInteger('city_id');
+            $table->unsignedBigInteger('city_id');
 
             $table->string('np_id');
             $table->string('department');
