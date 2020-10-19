@@ -24,6 +24,14 @@ class StripeOrderService
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
     }
 
+    /**
+     * @param Customer $customer
+     * @param Order $order
+     * @param int $amount
+     *
+     * @return Stripe\Order
+     * @throws Stripe\Exception\ApiErrorException
+     */
     public function create(Customer $customer, Order $order, int $amount): Stripe\Order
     {
         /** @var Stripe\Customer $stripeCustomer */
@@ -39,5 +47,7 @@ class StripeOrderService
                 ]
             ]
         ]);
+
+        return $order;
     }
 }
