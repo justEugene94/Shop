@@ -36,7 +36,7 @@ class StripeUserService extends StripeService
      * @return Stripe\Customer
      * @throws Stripe\Exception\ApiErrorException
      */
-    public function create(Customer $customer): Stripe\Customer
+    protected function create(Customer $customer): Stripe\Customer
     {
         /** @var Stripe\Customer $stripeCustomer */
         $stripeCustomer = \Stripe\Customer::create([
@@ -57,7 +57,7 @@ class StripeUserService extends StripeService
      *
      * @return bool
      */
-    public function checkDetails(Customer $customer, Stripe\Customer $stripeCustomer): bool
+    protected function checkDetails(Customer $customer, Stripe\Customer $stripeCustomer): bool
     {
         if (
             $customer->email == $stripeCustomer->email
@@ -79,7 +79,7 @@ class StripeUserService extends StripeService
      * @return Stripe\Customer
      * @throws Stripe\Exception\ApiErrorException
      */
-    public function update(Customer $customer, Stripe\Customer $stripeCustomer): Stripe\Customer
+    protected function update(Customer $customer, Stripe\Customer $stripeCustomer): Stripe\Customer
     {
         /** @var Stripe\Customer $stripeCustomer */
         $stripeCustomer = \Stripe\Customer::update($stripeCustomer->id, [
