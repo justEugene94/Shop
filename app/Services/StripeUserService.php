@@ -22,8 +22,10 @@ class StripeUserService extends StripeService
             $stripeCustomer = Stripe\Customer::retrieve($stripeCustomerId);
 
             if (!$this->checkDetails($customer, $stripeCustomer)) {
-
+                $stripeCustomer = $this->update($customer, $stripeCustomer);
             }
+
+            return $stripeCustomer;
         } else
             return $this->create($customer);
     }
@@ -52,7 +54,7 @@ class StripeUserService extends StripeService
     /**
      * @param Customer $customer
      * @param Stripe\Customer $stripeCustomer
-     * 
+     *
      * @return bool
      */
     public function checkDetails(Customer $customer, Stripe\Customer $stripeCustomer): bool
@@ -68,5 +70,24 @@ class StripeUserService extends StripeService
         } else {
             return false;
         }
+    }
+
+    /**
+     * @param Customer $customer
+     * @param Stripe\Customer $stripeCustomer
+     *
+     * @return Stripe\Customer
+     * @throws Stripe\Exception\ApiErrorException
+     */
+    public function update(Customer $customer, Stripe\Customer $stripeCustomer): Stripe\Customer
+    {
+        /** @var Stripe\Customer $stripeCustomer */
+        $stripeCustomer = \Stripe\Customer::update($stripeCustomer->id, [
+            'email' => $customer->email,
+            'name' => "{$customer->first_name} {$customer->last_name}",
+            'phone' => $customer->phone_number,
+        ]);
+
+        return $stripeCustomer;
     }
 }
