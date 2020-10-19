@@ -34,7 +34,7 @@ class StripeOrderService
      */
     public function create(Customer $customer, Order $order, int $amount): Stripe\Order
     {
-        /** @var Stripe\Customer $stripeCustomer */
+        /** @var Stripe\Customer */
         $stripeCustomer = $this->stripeUserService->get($customer);
 
         $order = Stripe\Order::create([
@@ -54,16 +54,16 @@ class StripeOrderService
     /**
      * @param Order $order
      * @param string $token
-     * 
+     *
      * @return Stripe\Order
      * @throws Stripe\Exception\ApiErrorException
      */
     public function pay(Order $order, string $token): Stripe\Order
     {
-        /** @var Stripe\Order $order */
-        $order = Stripe\Order::retrieve($order->stripe_order_id);
+        /** @var Stripe\Order */
+        $stripeOrder = Stripe\Order::retrieve($order->stripe_order_id);
 
-        return $order->pay([
+        return $stripeOrder->pay([
             'token' => $token,
         ]);
     }
