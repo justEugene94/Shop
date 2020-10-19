@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Order extends Model
 {
+    const CURRENCY = 'UAH';
+
     /** @var string */
     protected $table = 'orders';
 
