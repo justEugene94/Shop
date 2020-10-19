@@ -5,6 +5,21 @@ namespace App\Http\Requests\Checkout;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $mobile_phone
+ * @property string $city
+ * @property string $department
+ * @property string $cc_name
+ * @property string $cc_number
+ * @property string $cc_exp_month
+ * @property string $cc_exp_year
+ * @property string $cc_ccv
+ *
+ * @property array $getCard
+ */
 class StoreFormRequest extends FormRequest
 {
     /**
