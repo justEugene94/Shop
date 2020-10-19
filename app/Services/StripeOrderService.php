@@ -50,4 +50,21 @@ class StripeOrderService
 
         return $order;
     }
+
+    /**
+     * @param Order $order
+     * @param string $token
+     * 
+     * @return Stripe\Order
+     * @throws Stripe\Exception\ApiErrorException
+     */
+    public function pay(Order $order, string $token): Stripe\Order
+    {
+        /** @var Stripe\Order $order */
+        $order = Stripe\Order::retrieve($order->stripe_order_id);
+
+        return $order->pay([
+            'token' => $token,
+        ]);
+    }
 }
