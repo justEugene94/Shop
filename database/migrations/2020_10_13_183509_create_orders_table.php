@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedDecimal('amount');
 
             $table->unsignedInteger('status_id')->default(1);
+            $table->text('info');
 
             $table->timestamps();
         });
