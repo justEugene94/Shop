@@ -26,18 +26,17 @@ class StripeOrderService
 
     /**
      * @param Customer $customer
-     * @param Order $order
      * @param int $amount
      *
      * @return Stripe\Order
      * @throws Stripe\Exception\ApiErrorException
      */
-    public function create(Customer $customer, Order $order, int $amount): Stripe\Order
+    public function create(Customer $customer, int $amount): Stripe\Order
     {
         /** @var Stripe\Customer */
         $stripeCustomer = $this->stripeUserService->get($customer);
 
-        $order = Stripe\Order::create([
+        return Stripe\Order::create([
             'currency' => Order::CURRENCY,
             'customer' => $stripeCustomer->id,
             'email'    => $customer->email,
@@ -47,8 +46,6 @@ class StripeOrderService
                 ]
             ]
         ]);
-
-        return $order;
     }
 
     /**
