@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property string np_id
- * @property string department
+ * @property int $id
+ * @property string $np_id
+ * @property string $department
  *
  * Relations:
  * @property City $city
