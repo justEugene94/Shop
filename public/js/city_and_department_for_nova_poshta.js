@@ -13,11 +13,13 @@ jQuery(document).ready(function (e){
             success: function (result) {
                 let warehouses = result.result;
 
-                $('#department').empty().append($("<option></option>").text('Choose...'));
+                $('#np_json').empty().append($("<option></option>").text('Choose...'));
 
                 $.each(warehouses, function (key, value){
-                    $('#department').append($("<option></option>")
-                        .attr("value", value['DescriptionRu'])
+                    $('#np_json').append($("<option></option>")
+                        .attr("value", '{"DescriptionRu": "' +value['DescriptionRu'] +
+                            '", "Ref": "' +value['Ref'] +
+                            '", "CityRef": "' +value['CityRef'] + '"}')
                         .text(value['DescriptionRu']))
                 });
             }

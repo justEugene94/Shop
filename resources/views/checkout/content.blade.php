@@ -114,14 +114,14 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="department">Department</label>
-                    <select name="department"
-                            class="custom-select d-block w-100 @error('department') is-invalid @enderror"
-                            id="department" required>
+                    <label for="np_json">Department</label>
+                    <select name="np_json"
+                            class="custom-select d-block w-100 @error('np_json') is-invalid @enderror"
+                            id="np_json" required>
                         <option value="">Choose...</option>
                     </select>
                     <div class="invalid-feedback">
-                        @error('department')
+                        @error('np_json')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>

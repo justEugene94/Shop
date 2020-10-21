@@ -11,7 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $email
  * @property string $mobile_phone
  * @property string $city
- * @property string $department
+ * @property string $np_json
  * @property string $cc_name
  * @property string $cc_number
  * @property string $cc_exp_month
@@ -45,7 +45,7 @@ class StoreFormRequest extends FormRequest
             "email" => "required|string|email",
             "mobile_phone" => "required|max:50|min:4|regex:/(38)[0-9]{10}/",
             "city" => "required|string|max:50|min:4",
-            "department" => "required|string",
+            "np_json" => "required|json",
             "cc_name" => "required|string",
             "cc_number" => "required|string|regex:/[0-9]{16}/",
             "cc_exp_month" => "required|string||regex:/[0-9]{2}/",
