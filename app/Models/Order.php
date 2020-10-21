@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @property array $statuses
  * @property string $stripe_order_id
  * @property float $amount
  * @property int $status_id
@@ -21,6 +22,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Order extends Model
 {
     const CURRENCY = 'UAH';
+
+    /** Array with statuses
+     * @key is a local status
+     * @value is a stripe status
+     */
+    public $statuses = [
+        'created'   => 'created',
+        'paid'      => 'paid',
+        'fulfilled' => 'fulfilled',
+        'error'     => 'canceled'
+    ];
 
     /** @var string */
     protected $table = 'orders';

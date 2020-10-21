@@ -34,4 +34,32 @@ class OrderService
 
         return $order;
     }
+
+    /**
+     * @param Order $order
+     * @param Stripe\Order $stripeOrder
+     */
+    public function updateOrderStatus(Order $order, Stripe\Order $stripeOrder): void
+    {
+        if (in_array($stripeOrder->status, $order->statuses))
+        {
+            $status = array_search($stripeOrder->status, $order->statuses);
+            $this->saveUpdateOrderStatus($order, $status, $stripeOrder);
+        }
+        else
+            throw new \InvalidArgumentException("Unknown status [{$stripeOrder->status}]");
+    }
+
+    /**
+     * @param Order $order
+     * @param string $status
+     * @param Stripe\Order $stripeOrder
+     */
+    public function saveUpdateOrderStatus(Order $order, string $status, Stripe\Order $stripeOrder)
+    {
+        $order->status_id = (new Status)->firstOrFail('name', '=', $status)->id;
+        $order->info = $stripeOrder;
+
+        $order->save();
+    }
 }
