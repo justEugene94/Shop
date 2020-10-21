@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $stripe_order_id
  * @property float $amount
  * @property int $status_id
+ * @property string $info
  *
  * Relationships:
  * @property Customer $customer
@@ -28,7 +29,8 @@ class Order extends Model
     protected $fillable = [
         'stripe_order_id',
         'amount',
-        'status_id'
+        'status_id',
+        'info'
     ];
 
     /**
