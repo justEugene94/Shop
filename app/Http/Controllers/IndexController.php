@@ -4,20 +4,28 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Goods;
+use App\Models\Product;
+use Illuminate\View\View;
 
 class IndexController extends Controller
 {
+    /**
+     * @return View
+     */
     public function index()
     {
-        $goods = Goods::query()->paginate(9);
+        $products = Product::query()->paginate(9);
 
-        return view('home', ['goods' => $goods]);
+        return view('home', ['products' => $products]);
     }
 
-    public function show(int $goods_id)
+    /**
+     * @param int $product_id
+     * @return View
+     */
+    public function show(int $product_id)
     {
-        $product = Goods::query()->findOrFail($goods_id);
+        $product = Product::query()->findOrFail($product_id);
 
         return view('product', ['product' => $product]);
     }

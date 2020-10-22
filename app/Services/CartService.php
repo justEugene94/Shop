@@ -4,17 +4,17 @@
 namespace App\Services;
 
 
-use App\Models\Goods;
+use App\Models\Product;
 
 class CartService
 {
     /**
-     * @param Goods $product
+     * @param Product $product
      * @param array $cart
      *
      * @return array
      */
-    public function addProductInCartArray(Goods $product, Array $cart = []) :array
+    public function addProductInCartArray(Product $product, Array $cart = []) :array
     {
         $cart[$product->id] = [
             'name' => $product->title,

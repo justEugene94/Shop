@@ -22,7 +22,7 @@ $router->get('/', [
 ]);
 
 /** Product */
-$router->get('/products/{goods_id}', [
+$router->get('/products/{product_id}', [
     'as' => 'product',
     'uses' => 'IndexController@show'
 ]);
@@ -39,13 +39,13 @@ $router->post('/checkout/store', [
 ]);
 
 /** Add to Cart */
-$router->post('/products/{goods_id}/add-to-cart', [
+$router->post('/products/{product_id}/add-to-cart', [
     'as' => 'products.add-to-cart',
     'uses' => 'Api\CartController@add'
 ]);
 
 /** Delete from Cart */
-$router->delete('/products/{goods_id}/delete-from-cart', [
+$router->delete('/products/{product_id}/delete-from-cart', [
     'as' => 'products.delete-from-cart',
     'uses' => 'Api\CartController@delete'
 ]);

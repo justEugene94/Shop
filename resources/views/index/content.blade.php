@@ -1,7 +1,7 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
-            @foreach($goods as $product)
+            @foreach($products as $product)
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
                         <img
@@ -17,7 +17,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a class="btn btn-sm btn-outline-secondary"
-                                       href="{{ route('product', ['goods_id' => $product->id]) }}"
+                                       href="{{ route('product', ['product_id' => $product->id]) }}"
                                        role="button">Show</a>
                                     <form class="create" action="" method="POST">
                                         <input type="hidden" name="id" value="{{ $product->id }}">
@@ -31,7 +31,7 @@
             @endforeach
 
             <div class="justify-content-center">
-                {{ $goods->links()  }}
+                {{ $products->links()  }}
             </div>
         </div>
     </div>

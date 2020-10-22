@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $price
  * @property int $quantity
  */
-class Goods extends Model
+class Product extends Model
 {
-    protected $table = 'goods';
+    protected $table = 'products';
 
     protected $fillable = [
         'title',

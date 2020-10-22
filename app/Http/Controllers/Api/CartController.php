@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Goods;
+use App\Models\Product;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,22 +15,22 @@ class CartController extends Controller
 {
     /**
      * @param Request $request
-     * @param int $goods_id
+     * @param int $product_id
      *
      * @return Response
      */
-    public function add(Request $request, CartService $service, int $goods_id)
+    public function add(Request $request, CartService $service, int $product_id)
     {
-        $product = Goods::query()->findOrFail($goods_id);
+        $product = Product::query()->findOrFail($product_id);
 
         if (!$request->session()->has('cart')) {
             $cart = $service->addProductInCartArray($product);
 
             $request->session()->put('cart', $cart);
-        } elseif ($request->session()->has("cart.{$goods_id}")) {
+        } elseif ($request->session()->has("cart.{$product_id}")) {
             $cart = session()->get('cart');
-            $quantity = ++$cart[$goods_id]['quantity'];
-            $cart[$goods_id]['total'] = $quantity * $product->price;
+            $quantity = ++$cart[$product_id]['quantity'];
+            $cart[$product_id]['total'] = $quantity * $product->price;
             session()->put('cart', $cart);
         } else {
             $cart = $request->session()->get('cart');
@@ -55,13 +55,13 @@ class CartController extends Controller
 
     /**
      * @param Request $request
-     * @param int $goods_id
+     * @param int $product_id
      *
      * @return Response
      */
-    public function delete(Request $request, int $goods_id)
+    public function delete(Request $request, int $product_id)
     {
-        $product = Goods::query()->findOrFail($goods_id);
+        $product = Product::query()->findOrFail($product_id);
 
         if (!$request->session()->exists("cart.{$product->id}"))
         {
