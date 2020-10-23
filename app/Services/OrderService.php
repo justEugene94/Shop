@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\Customer;
 use App\Models\NPDepartment;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Status;
 use Stripe;
 
@@ -33,6 +34,21 @@ class OrderService
         $customer->orders()->save($order);
 
         return $order;
+    }
+
+    /**
+     * @param Order $order
+     * @param array $cart
+     */
+    public function addProductsInOrder(Order $order, array $cart): void
+    {
+        foreach ($cart as $id => $cartProduct)
+        {
+            /** @var Product $product */
+            $product = Product::query()->findOrFail($id);
+
+            $order->products()->attach($product->id, ['qty' => $cartProduct['quantity']]);
+        }
     }
 
     /**

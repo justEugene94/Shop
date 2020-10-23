@@ -91,6 +91,8 @@ class CheckoutController extends Controller
             /** @var Order $order */
             $order = $this->orderService->create($customer, $department, $stripeOrder);
 
+            $this->orderService->addProductsInOrder($order, $request->session()->get('cart'));
+
             /** @var string $token */
             $token = $this->stripeTokenService->getToken($request->getCard());
 
@@ -105,6 +107,7 @@ class CheckoutController extends Controller
 
         DB::commit();
 
+        // todo: Redirect to final page
         return '';
     }
 }
