@@ -23,6 +23,9 @@ class City extends Model
         'name',
     ];
 
+    /** @var bool  */
+    public $timestamps = false;
+
     /**
      * @return HasMany
      */
