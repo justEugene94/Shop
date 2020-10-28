@@ -121,72 +121,7 @@
                     </div>
                 </div>
                 <hr class="mb-4">
-
-                <h4 class="mb-3">Payment</h4>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-
-                        <label for="cc-name">Name on card</label>
-                        <input name="cc_name" type="text" class="form-control @error('cc_name') is-invalid @enderror"
-                               id="cc-name" placeholder="" required>
-                        <small class="text-muted">Full name as displayed on card</small>
-                        <div class="invalid-feedback">
-                            @error('cc_name')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-number">Credit card number</label>
-                        <input name="cc_number" type="text" class="form-control  @error('cc_number') is-invalid @enderror"
-                               id="cc-number" placeholder="" required>
-                        <div class="invalid-feedback">
-                            @error('cc_number')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-exp-month">Expiration Month</label>
-                        <input name="cc_exp_month" type="text"
-                               class="form-control  @error('cc_exp_month') is-invalid @enderror" id="cc-exp-month"
-                               placeholder="MM"
-                               required>
-                        <div class="invalid-feedback">
-                            @error('cc_exp_month')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-exp-year">Expiration Year</label>
-                        <input name="cc_exp_year" type="text"
-                               class="form-control  @error('cc_exp_year') is-invalid @enderror" id="cc-exp-year"
-                               placeholder="YYYY"
-                               required>
-                        <div class="invalid-feedback">
-                            @error('cc_exp_year')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-cvv">CVV</label>
-                        <input name="cc_ccv" type="text" class="form-control  @error('cc_ccv') is-invalid @enderror"
-                               id="cc-cvv" placeholder="CVV" required>
-                        <div class="invalid-feedback">
-                            @error('cc_ccv')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
             </form>
         </div>
     </div>
