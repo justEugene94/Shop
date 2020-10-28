@@ -117,14 +117,16 @@ class CheckoutController extends Controller
      * @param int $order_id
      *
      * @return View
+     * @throws ApiErrorException
      */
     public function getPaymentPage(int $order_id)
     {
+        /** @var Order $order */
         $order = Order::query()->findOrFail($order_id);
 
-        $paymentIntent = json_decode($order->info, true);
+        $clientSecret = $this->stripePaymentIntentService->getClientSecret($order);
 
-        return view('payment', ['client_secret' => $paymentIntent['client_secret']]);
+        return view('payment', ['client_secret' => $clientSecret]);
     }
 
     protected function checkProductsInCart(): void

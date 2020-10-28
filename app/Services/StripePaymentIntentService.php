@@ -47,5 +47,16 @@ class StripePaymentIntentService
         ]);
     }
 
+    /**
+     * @param Order $order
+     *
+     * @return string
+     * @throws \Stripe\Exception\ApiErrorException
+     */
+    public function getClientSecret(Order $order): string
+    {
+        $paymentIntent = PaymentIntent::retrieve($order->stripe_order_id);
 
+        return $paymentIntent->client_secret;
+    }
 }
