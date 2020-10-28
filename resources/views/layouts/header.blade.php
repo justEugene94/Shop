@@ -62,7 +62,7 @@
                             </div>
                         </div>
 
-                        <a class="checkout" href="{{ route('checkout') }}">Checkout</a>
+                        <a class="checkout" href="{{ route('checkout.index') }}">Checkout</a>
 
                     </div>
                 @endif

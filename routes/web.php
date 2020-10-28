@@ -29,13 +29,18 @@ $router->get('/products/{product_id}', [
 
 /** Checkout */
 $router->get('/checkout', [
-    'as' => 'checkout',
+    'as' => 'checkout.index',
     'uses' => 'CheckoutController@index'
 ]);
 
 $router->post('/checkout/store', [
     'as' => 'checkout.store',
     'uses' =>  'CheckoutController@store'
+]);
+
+$router->get('/checkout/payment', [
+    'as' => 'checkout.payment',
+    'uses' =>  'CheckoutController@getPaymentPage'
 ]);
 
 /** Add to Cart */

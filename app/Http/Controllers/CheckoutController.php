@@ -10,7 +10,7 @@ use App\Models\Order;
 use App\Services\CustomerService;
 use App\Services\NPDepartmentService;
 use App\Services\OrderService;
-use App\Services\StripeOrderService;
+use App\Services\StripePaymentIntentService;
 use App\Services\StripeTokenService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -29,8 +29,8 @@ class CheckoutController extends Controller
     /** @var NPDepartmentService */
     protected $departmentService;
 
-    /** @var StripeOrderService */
-    protected $stripeOrderService;
+    /** @var StripePaymentIntentService */
+    protected $stripePaymentIntentService;
 
     /** @var OrderService */
     protected $orderService;
@@ -43,21 +43,21 @@ class CheckoutController extends Controller
      *
      * @param CustomerService $customerService
      * @param NPDepartmentService $departmentService
-     * @param StripeOrderService $stripeOrderService
+     * @param StripePaymentIntentService $stripePaymentIntentService
      * @param OrderService $orderService
      * @param StripeTokenService $stripeTokenService
      */
     public function __construct(
                                 CustomerService $customerService,
                                 NPDepartmentService $departmentService,
-                                StripeOrderService $stripeOrderService,
+                                StripePaymentIntentService $stripePaymentIntentService,
                                 OrderService $orderService,
                                 StripeTokenService $stripeTokenService
     )
     {
         $this->customerService = $customerService;
         $this->departmentService = $departmentService;
-        $this->stripeOrderService = $stripeOrderService;
+        $this->stripePaymentIntentService = $stripePaymentIntentService;
         $this->orderService = $orderService;
         $this->stripeTokenService = $stripeTokenService;
     }
@@ -76,6 +76,11 @@ class CheckoutController extends Controller
         return view('checkout');
     }
 
+    /**
+     * @param StoreFormRequest $request
+     *
+     * @return RedirectResponse
+     */
     public function store(StoreFormRequest $request)
     {
         try {
@@ -92,29 +97,28 @@ class CheckoutController extends Controller
             $department = $this->departmentService->create($customer, $request->city, $request->np_json);
 
             /** @var Stripe\Order $stripeOrder */
-            $stripeOrder = $this->stripeOrderService->create($customer, $amount);
+            $paymentIntent = $this->stripePaymentIntentService->create($customer, $amount);
 
             /** @var Order $order */
-            $order = $this->orderService->create($customer, $department, $stripeOrder);
+            $order = $this->orderService->create($customer, $department, $paymentIntent);
 
             $this->orderService->addProductsInOrder($order, $request->session()->get('cart'));
 
-            /** @var string $token */
-            $token = $this->stripeTokenService->getToken($request->getCard());
-
-            /** @var Stripe\Order $stripeOrder */
-            $stripeOrder = $this->stripeOrderService->pay($order, $token);
-
-            $this->orderService->updateOrderStatus($order, $stripeOrder);
-
         } catch (ApiErrorException | \InvalidArgumentException | BadRequestException $e) {
-            return redirect()->route('checkout')->with(['message' => $e->getMessage()]);
+            return redirect()->route('checkout.index')->with(['message' => $e->getMessage()]);
         }
 
         DB::commit();
 
-        // todo: Redirect to final page
-        return '';
+        return redirect()->route('payment');
+    }
+
+    /**
+     * @return View
+     */
+    public function getPaymentPage()
+    {
+        return view('payment');
     }
 
     protected function checkProductsInCart(): void
