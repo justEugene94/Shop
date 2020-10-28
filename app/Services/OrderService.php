@@ -16,17 +16,17 @@ class OrderService
     /**
      * @param Customer $customer
      * @param NPDepartment $department
-     * @param Stripe\Order $stripeOrder
+     * @param Stripe\PaymentIntent $paymentIntent
      *
      * @return Order
      */
-    public function create(Customer $customer, NPDepartment $department, Stripe\Order $stripeOrder): Order
+    public function create(Customer $customer, NPDepartment $department, Stripe\PaymentIntent $paymentIntent): Order
     {
         $order = new Order([
-            'stripe_order_id' => $stripeOrder->id,
-            'amount' => $stripeOrder->amount,
+            'stripe_order_id' => $paymentIntent->id,
+            'amount' => $paymentIntent->amount,
             'status_id' => Status::CREATED,
-            'info' => $stripeOrder
+            'info' => $paymentIntent
         ]);
 
         $order->npDepartment()->associate($department);

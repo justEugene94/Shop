@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property array $statuses
+ * @property int $id
  * @property string $stripe_order_id
  * @property float $amount
  * @property int $status_id

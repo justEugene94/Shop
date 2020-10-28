@@ -38,7 +38,7 @@ $router->post('/checkout/store', [
     'uses' =>  'CheckoutController@store'
 ]);
 
-$router->get('/checkout/payment', [
+$router->get('/checkout/{order_id}/payment', [
     'as' => 'checkout.payment',
     'uses' =>  'CheckoutController@getPaymentPage'
 ]);

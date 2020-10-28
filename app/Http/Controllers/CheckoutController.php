@@ -110,15 +110,21 @@ class CheckoutController extends Controller
 
         DB::commit();
 
-        return redirect()->route('payment');
+        return redirect()->route('payment', ['order_id' => $order->id]);
     }
 
     /**
+     * @param int $order_id
+     *
      * @return View
      */
-    public function getPaymentPage()
+    public function getPaymentPage(int $order_id)
     {
-        return view('payment');
+        $order = Order::query()->findOrFail($order_id);
+
+        $paymentIntent = json_decode($order->info, true);
+
+        return view('payment', ['client_secret' => $paymentIntent['client_secret']]);
     }
 
     protected function checkProductsInCart(): void
