@@ -42,8 +42,10 @@ class StripePaymentIntentService
             'currency' => Order::CURRENCY,
             'customer' => $stripeCustomer->id,
             'receipt_email'    => $customer->email,
-            'amount'    => $amount,
+            'amount'    => $amount*100,
             'payment_method_types' => ['card'],
         ]);
     }
+
+
 }

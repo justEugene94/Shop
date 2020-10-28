@@ -100,7 +100,7 @@ class CheckoutController extends Controller
             $paymentIntent = $this->stripePaymentIntentService->create($customer, $amount);
 
             /** @var Order $order */
-            $order = $this->orderService->create($customer, $department, $paymentIntent);
+            $order = $this->orderService->create($customer, $department, $paymentIntent, $amount);
 
             $this->orderService->addProductsInOrder($order, $request->session()->get('cart'));
 
@@ -110,7 +110,7 @@ class CheckoutController extends Controller
 
         DB::commit();
 
-        return redirect()->route('payment', ['order_id' => $order->id]);
+        return redirect()->route('checkout.payment', ['order_id' => $order->id]);
     }
 
     /**

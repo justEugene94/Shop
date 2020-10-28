@@ -20,11 +20,11 @@ class OrderService
      *
      * @return Order
      */
-    public function create(Customer $customer, NPDepartment $department, Stripe\PaymentIntent $paymentIntent): Order
+    public function create(Customer $customer, NPDepartment $department, Stripe\PaymentIntent $paymentIntent, int $amount): Order
     {
         $order = new Order([
             'stripe_order_id' => $paymentIntent->id,
-            'amount' => $paymentIntent->amount,
+            'amount' => $amount,
             'status_id' => Status::CREATED,
             'info' => $paymentIntent
         ]);
