@@ -13,9 +13,12 @@ use App\Services\OrderService;
 use App\Services\StripeOrderService;
 use App\Services\StripeTokenService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Stripe\Exception\ApiErrorException;
 use Stripe;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 
 class CheckoutController extends Controller
@@ -60,31 +63,34 @@ class CheckoutController extends Controller
     }
 
     /**
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function index(): View
+    public function index()
     {
+        try {
+            $this->checkProductsInCart();
+        } catch (BadRequestException $e) {
+            return redirect()->route('home')->with(['message' => $e->getMessage()]);
+        }
+
         return view('checkout');
     }
 
     public function store(StoreFormRequest $request)
     {
-        if (!$request->session()->get('cart') || empty($request->session()->get('cart')))
-        {
-            return redirect()->route('checkout')->with(['message' => 'No products in cart']);
-        }
-
-        $amount = $request->session()->get('price');
-
-        DB::beginTransaction();
-
-        /** @var Customer $customer */
-        $customer = $this->customerService->create($request->first_name, $request->last_name, $request->email, $request->mobile_phone);
-
-        /** @var NPDepartment $department */
-        $department = $this->departmentService->create($customer, $request->city, $request->np_json);
-
         try {
+            $this->checkProductsInCart();
+
+            $amount = $request->session()->get('price');
+
+            DB::beginTransaction();
+
+            /** @var Customer $customer */
+            $customer = $this->customerService->create($request->first_name, $request->last_name, $request->email, $request->mobile_phone);
+
+            /** @var NPDepartment $department */
+            $department = $this->departmentService->create($customer, $request->city, $request->np_json);
+
             /** @var Stripe\Order $stripeOrder */
             $stripeOrder = $this->stripeOrderService->create($customer, $amount);
 
@@ -101,7 +107,7 @@ class CheckoutController extends Controller
 
             $this->orderService->updateOrderStatus($order, $stripeOrder);
 
-        } catch (ApiErrorException | \InvalidArgumentException $e) {
+        } catch (ApiErrorException | \InvalidArgumentException | BadRequestException $e) {
             return redirect()->route('checkout')->with(['message' => $e->getMessage()]);
         }
 
@@ -109,5 +115,13 @@ class CheckoutController extends Controller
 
         // todo: Redirect to final page
         return '';
+    }
+
+    protected function checkProductsInCart(): void
+    {
+        if (!Session::get('cart') || empty(Session::get('cart')))
+        {
+            throw new BadRequestException("No products in cart");
+        }
     }
 }

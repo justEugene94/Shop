@@ -1,10 +1,4 @@
 <div class="container">
-    @if(Session::has('message'))
-        <div class="alert alert-danger">
-            {{ Session::get('message') }}
-        </div>
-    @endif
-
     <div class="py-5 text-center">
         <h2>Checkout form</h2>
     </div>
@@ -192,7 +186,7 @@
                     </div>
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay</button>
             </form>
         </div>
     </div>

@@ -21,6 +21,11 @@
 
 <!--content-->
 <div class="content">
+    @if(Session::has('message'))
+        <div class="alert alert-danger">
+            {{ Session::get('message') }}
+        </div>
+    @endif
     @yield('content')
 </div>
 
