@@ -113,22 +113,6 @@ class CheckoutController extends Controller
         return redirect()->route('checkout.payment', ['order_id' => $order->id]);
     }
 
-    /**
-     * @param int $order_id
-     *
-     * @return View
-     * @throws ApiErrorException
-     */
-    public function getPaymentPage(int $order_id)
-    {
-        /** @var Order $order */
-        $order = Order::query()->findOrFail($order_id);
-
-        $clientSecret = $this->stripePaymentIntentService->getClientSecret($order);
-
-        return view('payment', ['client_secret' => $clientSecret]);
-    }
-
     protected function checkProductsInCart(): void
     {
         if (!Session::get('cart') || empty(Session::get('cart')))

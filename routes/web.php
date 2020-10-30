@@ -33,14 +33,16 @@ $router->get('/checkout', [
     'uses' => 'CheckoutController@index'
 ]);
 
+/** Add Order */
 $router->post('/checkout/store', [
     'as' => 'checkout.store',
     'uses' =>  'CheckoutController@store'
 ]);
 
+/** Payment page */
 $router->get('/checkout/{order_id}/payment', [
     'as' => 'checkout.payment',
-    'uses' =>  'CheckoutController@getPaymentPage'
+    'uses' =>  'PaymentController@index'
 ]);
 
 /** Add to Cart */
@@ -59,4 +61,10 @@ $router->delete('/products/{product_id}/delete-from-cart', [
 $router->post('/nova-poshta/warehouses', [
     'as' => 'nova-poshta.warehouses',
     'uses' => 'Api\NovaPoshtaController@getWarehouses',
+]);
+
+/** Thank you page */
+$router->get('/thankyou', [
+    'as' => 'thankyou',
+    'uses' => 'IndexController@getThankYouPage'
 ]);

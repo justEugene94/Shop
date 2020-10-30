@@ -29,4 +29,9 @@ class IndexController extends Controller
 
         return view('product', ['product' => $product]);
     }
+
+    public function getThankYouPage()
+    {
+        return view('thankyou');
+    }
 }
