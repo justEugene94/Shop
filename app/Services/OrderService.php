@@ -53,28 +53,29 @@ class OrderService
 
     /**
      * @param Order $order
-     * @param Stripe\Order $stripeOrder
      */
-    public function updateOrderStatus(Order $order, Stripe\Order $stripeOrder): void
+    public function updateOrderStatus(Order $order): void
     {
-        if (in_array($stripeOrder->status, $order->statuses))
+        $paymentIntent = Stripe\PaymentIntent::retrieve($order->stripe_order_id);
+
+        if (in_array($paymentIntent->status, $order->statuses))
         {
-            $status = array_search($stripeOrder->status, $order->statuses);
-            $this->saveUpdateOrderStatus($order, $status, $stripeOrder);
+            $status = array_search($paymentIntent->status, $order->statuses);
+            $this->saveUpdateOrderStatus($order, $status, $paymentIntent);
         }
         else
-            throw new \InvalidArgumentException("Unknown status [{$stripeOrder->status}]");
+            throw new \InvalidArgumentException("Unknown status [{$paymentIntent->status}]");
     }
 
     /**
      * @param Order $order
      * @param string $status
-     * @param Stripe\Order $stripeOrder
+     * @param Stripe\PaymentIntent $paymentIntent
      */
-    public function saveUpdateOrderStatus(Order $order, string $status, Stripe\Order $stripeOrder)
+    public function saveUpdateOrderStatus(Order $order, string $status, Stripe\PaymentIntent $paymentIntent)
     {
         $order->status_id = (new Status)->firstOrFail('name', '=', $status)->id;
-        $order->info = $stripeOrder;
+        $order->info = $paymentIntent;
 
         $order->save();
     }

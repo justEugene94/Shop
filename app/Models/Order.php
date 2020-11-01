@@ -31,8 +31,8 @@ class Order extends Model
      * @value is a stripe status
      */
     public $statuses = [
-        'created' => 'created',
-        'paid' => 'paid',
+        'created' => 'requires_payment_method',
+        'paid' => 'succeeded',
         'fulfilled' => 'fulfilled',
         'error' => 'canceled'
     ];

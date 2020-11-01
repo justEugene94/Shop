@@ -56,12 +56,20 @@
                     $('#container').prepend('<div class="alert alert-danger" role="alert">' +
                                                         result.error.message
                                                     +'</div>')
-                    console.log(result.error.message);
                 } else {
                     // The payment has been processed!
+
+                    let order_id = $('#order_id').val()
+                    let token = $('meta[name="csrf-token"]').attr('content')
+
+                    $.ajax({
+                        type:'POST',
+                        url: 'checkout/' + order_id + '/update-status',
+                        headers: {'X-CSRF-TOKEN': token, '_method': 'post'},
+                    });
+
                     if (result.paymentIntent.status === 'succeeded') {
-                        console.log(result.paymentIntent)
-                        {{--window.location.href = "{{URL::to('/thankyou')}}"--}}
+                        window.location.href = "{{URL::to('/thankyou')}}"
                     }
                 }
             });

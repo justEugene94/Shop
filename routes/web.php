@@ -45,6 +45,12 @@ $router->get('/checkout/{order_id}/payment', [
     'uses' =>  'PaymentController@index'
 ]);
 
+/** Update Order Status */
+$router->post('/checkout/{order_id}/update-status', [
+    'as' => 'checkout.update.status',
+    'uses' => 'Api\OrderController@updateStatus'
+]);
+
 /** Add to Cart */
 $router->post('/products/{product_id}/add-to-cart', [
     'as' => 'products.add-to-cart',

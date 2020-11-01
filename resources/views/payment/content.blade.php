@@ -18,6 +18,8 @@
                     <!-- We'll put the error messages in this element -->
                     <div id="card-errors" role="alert"></div>
 
+                    <input type="hidden" id="order_id" value="{{ $order_id }}">
+
                     <button class="btn btn-primary btn-lg btn-block" id="submit">Pay</button>
                 </form>
             </div>
