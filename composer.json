@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "daaner/novaposhta": "^0.2.0@alpha",
+        "encore/laravel-admin": "1.*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
