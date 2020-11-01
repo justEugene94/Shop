@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Product;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class IndexController extends Controller
@@ -30,8 +32,10 @@ class IndexController extends Controller
         return view('product', ['product' => $product]);
     }
 
-    public function getThankYouPage()
+    public function getThankYouPage(Request $request)
     {
+        $request->session()->flush();
+
         return view('thankyou');
     }
 }
