@@ -117,9 +117,9 @@ class ProductsController extends Controller
             return "<a href='/admin/products/{$this->id}/edit'>{$this->title}</a>";
         });
 
-        $grid->price('price');
+        $grid->price('Price');
 
-        $grid->quantity('quantity');
+        $grid->quantity('Quantity');
 
         $grid->created_at('Created at');
 

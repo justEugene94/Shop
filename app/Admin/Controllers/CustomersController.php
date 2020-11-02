@@ -120,11 +120,11 @@ class CustomersController extends Controller
             return "<a href='/admin/products/{$this->id}/edit'>{$this->first_name}</a>";
         });
 
-        $grid->last_name('last_name');
+        $grid->last_name('Last name');
 
-        $grid->phone_number('phone_number');
+        $grid->phone_number('Phone number');
 
-        $grid->email('email');
+        $grid->email('Email');
 
         $grid->created_at('Created at');
 
