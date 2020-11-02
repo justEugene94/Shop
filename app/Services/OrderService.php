@@ -48,7 +48,19 @@ class OrderService
             $product = Product::query()->findOrFail($id);
 
             $order->products()->attach($product->id, ['qty' => $cartProduct['quantity']]);
+
+            $this->reduceQty($product, $cartProduct['quantity']);
         }
+    }
+
+    /**
+     * @param Product $product
+     * @param int $qty
+     */
+    protected function reduceQty(Product $product, int $qty)
+    {
+        $product->quantity -= $qty;
+        $product->save();
     }
 
     /**
