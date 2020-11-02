@@ -13,4 +13,9 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
 
+    /**
+     * Api Routes
+     */
+    $router->resource('products', ProductsController::class);
+
 });
