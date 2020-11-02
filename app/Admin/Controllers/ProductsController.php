@@ -103,6 +103,10 @@ class ProductsController extends Controller
 
                 $query->where('title', 'like', "%{$this->input}%");
 
+                $query->orWhere('price', 'like', "{$this->input}");
+
+                $query->orWhere('quantity', 'like', "{$this->input}");
+
             }, 'Search');
 
         });
@@ -113,8 +117,12 @@ class ProductsController extends Controller
         $grid->column('Title')->display(function () {
             return "<a href='/admin/products/{$this->id}/edit'>{$this->title}</a>";
         });
+
+        $grid->price('price');
+
+        $grid->quantity('quantity');
+
         $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
 
         return $grid;
     }
