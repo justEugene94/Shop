@@ -89,7 +89,6 @@ class ProductsController extends Controller
         $grid = new Grid(new Product());
 
         $grid->disableExport();
-        $grid->disableCreateButton();
 
         $grid->actions(function ($actions) {
             $actions->disableView();
