@@ -18,6 +18,7 @@ Route::group([
      */
     $router->resource('customers', CustomersController::class);
     $router->resource('orders', OrdersController::class);
+    $router->get('cities', 'CitiesController@index');
     $router->resource('products', ProductsController::class);
 
 });

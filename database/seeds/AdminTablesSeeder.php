@@ -141,7 +141,7 @@ class AdminTablesSeeder extends Seeder
                 'order'     => 10,
                 'title'     => 'Cities',
                 'icon'      => 'fa-home',
-                'uri'       => 'citites',
+                'uri'       => 'cities',
             ],
             [
                 'parent_id' => 9,
