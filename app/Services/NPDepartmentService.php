@@ -29,7 +29,7 @@ class NPDepartmentService
     {
         $arrayNP = json_decode($np_json, true);
 
-        $city = $this->cityService->getOrCreate($city, $arrayNP['CityRef']);
+        $city = $this->cityService->getOrCreate($arrayNP['CityRef'], $city);
 
         $department = new NPDepartment([
             'np_id'      => $arrayNP['Ref'],
