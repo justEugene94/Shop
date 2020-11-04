@@ -17,6 +17,7 @@ Route::group([
      * Api Routes
      */
     $router->resource('customers', CustomersController::class);
+    $router->resource('orders', OrdersController::class);
     $router->resource('products', ProductsController::class);
 
 });
