@@ -13,10 +13,14 @@ class IndexController extends Controller
 {
     /**
      * @return View
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
         $products = Product::query()->paginate(9);
+
+        $this->authorize('viewAny', Product::class);
 
         return view('home', ['products' => $products]);
     }
@@ -24,10 +28,14 @@ class IndexController extends Controller
     /**
      * @param int $product_id
      * @return View
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(int $product_id)
     {
         $product = Product::query()->findOrFail($product_id);
+
+        $this->authorize('view', $product);
 
         return view('product', ['product' => $product]);
     }
