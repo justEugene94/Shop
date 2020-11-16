@@ -14,6 +14,7 @@ use App\Services\StripePaymentIntentService;
 use App\Services\StripeTokenService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Stripe\Exception\ApiErrorException;
@@ -111,6 +112,24 @@ class CheckoutController extends Controller
         DB::commit();
 
         return redirect()->route('checkout.payment', ['order_id' => $order->id]);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $order_id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getThankYouPage(Request $request, int $order_id)
+    {
+        /** @var Order $order */
+        $order = Order::query()->findOrFail($order_id);
+
+        $this->orderService->updateOrderStatus($order);
+
+        $request->session()->flush();
+
+        return view('thankyou');
     }
 
     protected function checkProductsInCart(): void

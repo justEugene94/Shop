@@ -58,18 +58,9 @@
                                                     +'</div>')
                 } else {
                     // The payment has been processed!
-
-                    let order_id = $('#order_id').val()
-                    let token = $('meta[name="csrf-token"]').attr('content')
-
-                    $.ajax({
-                        type:'POST',
-                        url: 'checkout/' + order_id + '/update-status',
-                        headers: {'X-CSRF-TOKEN': token, '_method': 'post'},
-                    });
-
                     if (result.paymentIntent.status === 'succeeded') {
-                        window.location.href = "{{URL::to('/thankyou')}}"
+                        window.location.href = "{{URL::to("/orders/{$order_id}/thankyou")}}"
+                        console.log("succeeded")
                     }
                 }
             });

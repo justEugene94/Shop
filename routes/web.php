@@ -47,6 +47,7 @@ $router->get('/checkout/{order_id}/payment', [
 
 /** Update Order Status */
 $router->post('/checkout/{order_id}/update-status', [
+
     'as' => 'checkout.update.status',
     'uses' => 'Api\OrderController@updateStatus'
 ]);
@@ -70,7 +71,7 @@ $router->post('/nova-poshta/warehouses', [
 ]);
 
 /** Thank you page */
-$router->get('/thankyou', [
+$router->get('/orders/{order_id}/thankyou', [
     'as' => 'thankyou',
-    'uses' => 'IndexController@getThankYouPage'
+    'uses' => 'CheckoutController@getThankYouPage'
 ]);

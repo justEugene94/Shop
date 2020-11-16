@@ -39,11 +39,4 @@ class IndexController extends Controller
 
         return view('product', ['product' => $product]);
     }
-
-    public function getThankYouPage(Request $request)
-    {
-        $request->session()->flush();
-
-        return view('thankyou');
-    }
 }
