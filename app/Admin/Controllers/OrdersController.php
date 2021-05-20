@@ -4,7 +4,6 @@
 namespace App\Admin\Controllers;
 
 
-use App\Admin\Selectable\Products;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
@@ -15,6 +14,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Illuminate\Database\Query\Builder;
+
 
 class OrdersController extends Controller
 {
@@ -39,7 +39,7 @@ class OrdersController extends Controller
     /**
      * Show interface.
      *
-     * @param mixed   $id
+     * @param mixed $id
      * @param Content $content
      *
      * @return Content
@@ -55,7 +55,7 @@ class OrdersController extends Controller
     /**
      * Edit interface.
      *
-     * @param mixed   $id
+     * @param mixed $id
      * @param Content $content
      *
      * @return Content
@@ -95,7 +95,8 @@ class OrdersController extends Controller
         $grid->disableCreateButton();
 
         $grid->actions(function ($actions) {
-            $actions->disableView();
+            $actions->disableDelete();
+            $actions->disableEdit();
         });
 
         $grid->filter(function ($filter) {
@@ -122,7 +123,7 @@ class OrdersController extends Controller
         $grid->id('Id');
 
         $grid->column('Customer')->display(function () {
-            return "<a href='/admin/customers/{$this->customer->id}/edit'>{$this->customer->first_name} {$this->customer->last_name}</a>";
+            return "<a href='/admin/customers/{$this->customer->id}/'>{$this->customer->first_name} {$this->customer->last_name}</a>";
         });
 
         $grid->column('City')->display(function () {
@@ -163,15 +164,48 @@ class OrdersController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Order::query()->findOrFail($id));
+        $show = new Show(Order::query()->with(['products'])->findOrFail($id));
 
         $show->id('Id');
-        $show->customer()->first_name('Name');
-        $show->customer()->last_name('Last Name');
-        $show->status()->name('Status');
+
+        //todo: show status
+//        $show->status()->name('Status');
         $show->amount('Amount');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
+
+        $show->customer('Customer', function ($customer) {
+            $customer->first_name();
+            $customer->last_name();
+
+            $customer->panel()->tools(function (Show\Tools $tools) {
+                $tools->disableEdit();
+                $tools->disableList();
+                $tools->disableDelete();
+            });
+        });
+
+        //todo: qty from pivot
+        $show->products('Products', function ($products) {
+            $products->id();
+            $products->title();
+            $products->price();
+            $products->description()->limit(10);
+
+            $products->disableCreateButton();
+            $products->disableExport();
+
+            $products->actions(function ($actions) {
+                $actions->disableDelete();
+                $actions->disableEdit();
+            });
+        });
+
+        $show->panel()->tools(function (Show\Tools $tools) {
+            $tools->disableEdit();
+            $tools->disableList();
+            $tools->disableDelete();
+        });
 
         return $show;
     }
