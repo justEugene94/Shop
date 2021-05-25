@@ -167,9 +167,9 @@ class OrdersController extends Controller
         $show = new Show(Order::query()->with(['products'])->findOrFail($id));
 
         $show->id('Id');
-
-        //todo: show status
-//        $show->status()->name('Status');
+        $show->status_id('Status')->as(function ($status_id) {
+            return (new Status)->find($status_id)->name;
+        });
         $show->amount('Amount');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
