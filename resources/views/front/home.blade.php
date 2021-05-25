@@ -1,15 +1,15 @@
-@extends('layouts.index')
+@extends('front.layouts.index')
 
 @section('header')
-    @include('layouts.header')
+    @include('front.layouts.header')
 @endsection
 
 @section('content')
-    @include('index.content')
+    @include('front.index.content')
 @endsection
 
 @section('footer')
-    @include('layouts.footer')
+    @include('front.layouts.footer')
 @endsection
 
 @section('scripts')

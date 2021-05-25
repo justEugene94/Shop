@@ -74,7 +74,7 @@ class CheckoutController extends Controller
             return redirect()->route('home')->with(['message' => $e->getMessage()]);
         }
 
-        return view('checkout');
+        return view('front.checkout');
     }
 
     /**
@@ -129,7 +129,7 @@ class CheckoutController extends Controller
 
         $request->session()->flush();
 
-        return view('thankyou');
+        return view('front.thankyou');
     }
 
     protected function checkProductsInCart(): void

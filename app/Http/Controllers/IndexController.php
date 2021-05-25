@@ -22,7 +22,7 @@ class IndexController extends Controller
 
         $this->authorize('viewAny', Product::class);
 
-        return view('home', ['products' => $products]);
+        return view('front.home', ['products' => $products]);
     }
 
     /**
@@ -37,6 +37,6 @@ class IndexController extends Controller
 
         $this->authorize('view', $product);
 
-        return view('product', ['product' => $product]);
+        return view('front.product', ['product' => $product]);
     }
 }

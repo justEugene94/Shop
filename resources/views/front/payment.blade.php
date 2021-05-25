@@ -1,19 +1,19 @@
-@extends('layouts.index')
+@extends('front.layouts.index')
 
 @section('head-scripts')
     <script src="https://js.stripe.com/v3/"></script>
 @endsection
 
 @section('header')
-    @include('layouts.header')
+    @include('front.layouts.header')
 @endsection
 
 @section('content')
-    @include('payment.content')
+    @include('front.payment.content')
 @endsection
 
 @section('footer')
-    @include('layouts.footer')
+    @include('front.layouts.footer')
 @endsection
 
 @section('scripts')

@@ -9,7 +9,6 @@ use App\Services\StripePaymentIntentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Stripe\Exception\ApiErrorException;
-use Stripe\PaymentIntent;
 
 class PaymentController extends Controller
 {
@@ -42,7 +41,7 @@ class PaymentController extends Controller
             return redirect()->route('checkout.index')->with('massege', $e->getMessage());
         }
 
-        return view('payment', [
+        return view('front.payment', [
             'client_secret' => $clientSecret,
             'order_id' => $order->id,
             'first_name' => $order->customer->first_name,
