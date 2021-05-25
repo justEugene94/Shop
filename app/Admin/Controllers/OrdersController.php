@@ -13,6 +13,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Box;
 use Illuminate\Database\Query\Builder;
 
 
@@ -49,7 +50,7 @@ class OrdersController extends Controller
         return $content
             ->header('Detail')
             ->description('Orders')
-            ->body($this->detail($id));
+            ->body($this->detail($id, $content));
     }
 
     /**
@@ -162,21 +163,28 @@ class OrdersController extends Controller
      *
      * @return Show
      */
-    protected function detail($id)
+    protected function detail($id, Content $content)
     {
-        $show = new Show(Order::query()->with(['products'])->findOrFail($id));
+        $order = Order::query()->with(['products'])->findOrFail($id);
 
-        $show->id('Id');
+        $show = new Show($order);
+
+        $show->amount('Total');
+
+        $show->divider();
+
         $show->status_id('Status')->as(function ($statusId) {
             return (new Status)->find($statusId)->name;
         });
-        $show->amount('Amount');
-        $show->created_at('Created at');
-        $show->updated_at('Updated at');
+        $show->created_at('Created');
+        $show->updated_at('Updated');
 
         $show->customer('Customer', function ($customer) {
             $customer->first_name();
             $customer->last_name();
+
+            $customer->phone_number();
+            $customer->email();
 
             $customer->panel()->tools(function (Show\Tools $tools) {
                 $tools->disableEdit();
@@ -185,21 +193,7 @@ class OrdersController extends Controller
             });
         });
 
-        //todo: qty from pivot
-        $show->products('Products', function ($products) {
-            $products->id();
-            $products->title();
-            $products->price();
-            $products->description()->limit(10);
-
-            $products->disableCreateButton();
-            $products->disableExport();
-
-            $products->actions(function ($actions) {
-                $actions->disableDelete();
-                $actions->disableEdit();
-            });
-        });
+        $content->row((new Box('Products', view('admin.order.products', ['order' => $order])))->style('info'));
 
         $show->panel()->tools(function (Show\Tools $tools) {
             $tools->disableEdit();
