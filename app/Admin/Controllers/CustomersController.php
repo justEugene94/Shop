@@ -117,7 +117,7 @@ class CustomersController extends Controller
 
 
         $grid->column('First name')->display(function () {
-            return "<a href='/admin/products/{$this->id}/edit'>{$this->first_name}</a>";
+            return "<a href='/admin/customers/{$this->id}/edit'>{$this->first_name}</a>";
         });
 
         $grid->last_name('Last name');
