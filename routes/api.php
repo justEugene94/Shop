@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/** @var Route $router */
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/** Products */
+$router->apiResource('products', 'Api\ProductController')->only(['index', 'show']);
