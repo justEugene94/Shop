@@ -16,6 +16,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.4",
         "stripe/stripe-php": "^7.57"
     },
     "require-dev": {
