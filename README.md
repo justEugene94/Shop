@@ -31,11 +31,20 @@ docker-compose up --build
 docker-compose exec workspace bash
 
 composer install
+npm install
 
 php artisan key:generate
+
+npm run dev
 
 php artisan migrate
 php artisan db:seed --class='DeveloperSeeder'
 
 php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
+```
+
+* #### Start Frontend Watcher
+
+```bash
+npm run watch
 ```
