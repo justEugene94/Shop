@@ -59,16 +59,37 @@
         <v-main>
             <router-view/>
         </v-main>
+
+        <template v-if="error">
+            <v-snackbar
+                :multi-line="true"
+                color="error"
+                @input="closeError"
+                :value="true"
+            >
+                {{ error }}
+                <template v-slot:action="{ attrs }">
+                    <v-btn
+                        dark
+                        text
+                        v-bind="attrs"
+                        @click="closeError"
+                    >
+                        Close
+                    </v-btn>
+                </template>
+            </v-snackbar>
+        </template>
     </v-app>
 </template>
 
 <script>
 export default {
     name: 'App',
-    data: () => {
-        return {}
-    },
     computed: {
+        error () {
+            return this.$store.getters.error
+        },
         links () {
             return [
                 {title: 'Home', icon: 'mdi-home-outline', url: '/'},
@@ -77,10 +98,17 @@ export default {
                 {title: 'Contacts', icon: 'mdi-phone-outline', url: '/contacts'},
             ]
         }
+    },
+    methods: {
+        closeError () {
+            this.$store.dispatch('clearError')
+        }
     }
 }
 </script>
 
 <style scoped>
-
+    .pointer {
+        cursor: pointer;
+    }
 </style>

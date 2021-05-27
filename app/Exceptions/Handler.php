@@ -50,6 +50,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // todo: Exceptions in Json
         return parent::render($request, $exception);
     }
 }

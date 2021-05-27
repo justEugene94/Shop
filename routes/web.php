@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 /** @var Route $router */
 
-$router->view('/', 'index');
+$router->view('{any}', 'index')->where('any', '.*');
 
 ///** Home */
 //$router->get('/', [
