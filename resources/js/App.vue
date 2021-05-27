@@ -12,6 +12,7 @@
                 <v-list-item
                     v-for="link in links"
                     :key="link.title"
+                    :to="link.url"
                     link
                 >
                     <v-list-item-icon>
@@ -34,24 +35,29 @@
             color="deep-purple"
         >
             <v-toolbar-title>
-                  <span
-                      role="link"
-                  >
-                    Here can be the name of your store
-                  </span>
+                <router-link
+                    to="/"
+                    class="pointer"
+                    custom v-slot="{ navigate }"
+                >
+                    <span
+                        role="link"
+                        @click="navigate"
+                    >
+                        Here can be the name of your store
+                    </span>
+                </router-link>
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
 
-            <v-btn icon>
+            <v-btn icon to="/cart">
                 <v-icon>mdi-cart-outline</v-icon>
             </v-btn>
         </v-app-bar>
 
         <v-main>
-            <v-container fluid>
-
-            </v-container>
+            <router-view/>
         </v-main>
     </v-app>
 </template>
