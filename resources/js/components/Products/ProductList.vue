@@ -24,12 +24,18 @@
                                 {{ product.title }}
                             </v-card-title>
 
-                            <v-card-subtitle>
+                            <v-card-text>
                                 Price: <strong>{{ product.price }}</strong>
-                            </v-card-subtitle>
+                            </v-card-text>
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
+                                <v-btn
+                                    color="error"
+                                    depressed
+                                >
+                                    Buy
+                                </v-btn>
                                 <v-btn
                                     text
                                     :to="{name: 'productShow', params: {'productId': product.id}}"
