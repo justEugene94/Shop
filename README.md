@@ -43,7 +43,7 @@ php artisan db:seed --class='DeveloperSeeder'
 php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
 ```
 
-* #### Start Frontend Watcher
+* #### Start Watcher
 
 ```bash
 npm run watch
