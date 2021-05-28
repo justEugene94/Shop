@@ -23,7 +23,7 @@
                         </v-card-title>
 
                         <v-card-subtitle>
-                            {{ product.price }}
+                            Price: <strong>{{ product.price }}</strong>
                         </v-card-subtitle>
 
                         <v-card-actions>
@@ -38,6 +38,7 @@
                     </v-card>
                 </v-flex>
             </v-layout>
+            <app-pagination :fetchMethod="'fetchProducts'"></app-pagination>
         </v-container>
     </div>
     <div v-else>

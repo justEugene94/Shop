@@ -1,7 +1,8 @@
 export default {
     state: {
         loading: false,
-        error: null
+        error: null,
+        pagination: null
     },
     mutations: {
         setLoading (state, payload) {
@@ -12,6 +13,9 @@ export default {
         },
         clearError (state) {
             state.error = null
+        },
+        setPagination (state, payload) {
+            state.pagination = payload
         }
     },
     actions: {
@@ -23,6 +27,9 @@ export default {
         },
         clearError ({commit}) {
             commit('clearError')
+        },
+        setPagination ({commit}, payload) {
+            commit('setPagination', payload)
         }
     },
     getters: {
@@ -31,6 +38,9 @@ export default {
         },
         error (state) {
             return state.error
+        },
+        pagination (state) {
+            return state.pagination
         }
     }
 }

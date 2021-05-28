@@ -8,16 +8,18 @@ export default {
         }
     },
     actions: {
-        async fetchProducts ({commit}) {
+        async fetchProducts ({commit}, page) {
             commit('clearError')
             commit('setLoading', true)
 
             try {
-                const products = await axios.get('/api/products/')
+                const products = await axios.get('/api/products/?page=' + page)
 
-                //todo: Removed Test and added pagination
-                console.log(products.data.result)
                 commit('loadProducts', products.data.result)
+
+                if (typeof products.data.pagination !== 'undefined') {
+                    commit('setPagination', products.data.pagination.meta)
+                }
 
                 commit('setLoading', false)
             } catch (e) {
