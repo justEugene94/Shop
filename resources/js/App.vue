@@ -107,8 +107,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     .pointer {
         cursor: pointer;
+    }
+    h2 {
+        margin: 5% auto;
     }
 </style>
