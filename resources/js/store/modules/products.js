@@ -21,7 +21,7 @@ export default {
 
                 commit('setLoading', false)
             } catch (e) {
-                commit('setError', e.message)
+                commit('setError', e.messages.error)
                 commit('setLoading', false)
 
                 throw e

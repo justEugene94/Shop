@@ -13,10 +13,10 @@
                         class="mx-auto"
                         max-width="344"
                     >
-<!--                        <v-img-->
-<!--                            :src="product.imageSrc"-->
-<!--                            height="200px"-->
-<!--                        ></v-img>-->
+                        <v-img
+                            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                            height="200px"
+                        ></v-img>
 
                         <v-card-title>
                             {{ product.title }}
@@ -61,11 +61,9 @@ export default {
     name: 'ProductList',
     computed: {
         products () {
-            console.log(this.$store.getters.products)
             return this.$store.getters.products
         },
         loading () {
-            console.log(this.$store.getters.loading)
             return this.$store.getters.loading
         }
     },

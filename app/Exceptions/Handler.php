@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Http\Responses\Api\Response;
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -29,28 +34,69 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Throwable  $exception
+     * @param  \Throwable  $e
      * @return void
      *
-     * @throws \Exception
+     * @throws \Exception|Throwable
      */
-    public function report(Throwable $exception)
+    public function report(Throwable $e)
     {
-        parent::report($exception);
+        parent::report($e);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
+     * @param  \Throwable  $e
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e)
     {
-        // todo: Exceptions in Json
-        return parent::render($request, $exception);
+        $e = $this->prepareException($e);
+
+        if ($e instanceof ValidationException) {
+            return $this->convertValidationExceptionToResponse($e, $request);
+        }
+
+        return $this->JsonResponse($request, $e);
+    }
+
+    /**
+     * @param ValidationException $e
+     * @param \Illuminate\Http\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request): \Symfony\Component\HttpFoundation\Response
+    {
+        if ($e->response) {
+            return $e->response;
+        }
+
+        return Response::make()
+            ->setValidation($e->errors())
+            ->addErrorMessage($e->getMessage(), 422)
+            ->toResponse($request);
+    }
+
+    /**
+     * @param Request $request
+     * @param \Exception $e
+     * @return JsonResponse
+     */
+    protected function JsonResponse(Request $request, Exception $e): JsonResponse
+    {
+        $status = $this->isHttpException($e) ? $e->getStatusCode() : 500;
+        $headers = $this->isHttpException($e) ? $e->getHeaders() : [];
+
+        $response = Response::make(null, $status, $headers);
+
+        if (config('app.debug')) {
+            $response->setBacktrace($this->convertExceptionToArray($e));
+        }
+
+        return $response->addErrorMessage($e->getMessage(), $status)->toResponse($request);
     }
 }

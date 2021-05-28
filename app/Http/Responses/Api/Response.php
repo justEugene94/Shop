@@ -29,14 +29,24 @@ class Response implements Responsable
     protected $headers;
 
     /**
-     * @var int
+     * @var mixed
      */
-    protected $options;
+    protected $pagination;
+
+    /**
+     * @var array
+     */
+    protected $messages = [];
 
     /**
      * @var mixed
      */
-    protected $pagination;
+    protected $validation;
+
+    /**
+     * @var array
+     */
+    protected $backtrace;
 
     /**
      * Response constructor.
@@ -44,27 +54,24 @@ class Response implements Responsable
      * @param mixed|null $data
      * @param int $status
      * @param array $headers
-     * @param int $options
      */
-    public function __construct($data = null, int $status = 200, array $headers = [], int $options = 0)
+    public function __construct($data = null, int $status = 200, array $headers = [])
     {
         $this->data = $data;
         $this->status = $status;
         $this->headers = $headers;
-        $this->options = $options;
     }
 
     /**
      * @param null $data
      * @param int $status
      * @param array $headers
-     * @param int $options
      *
      * @return static
      */
-    public static function make($data = null, int $status = 200, array $headers = [], int $options = 0): self
+    public static function make($data = null, int $status = 200, array $headers = []): self
     {
-        return new static($data, $status, $headers, $options);
+        return new static($data, $status, $headers);
     }
 
     /**
@@ -95,6 +102,60 @@ class Response implements Responsable
             }
         }
 
-        return new JsonResponse($data, $this->status, $this->headers, $this->options);
+        if (!empty($this->messages)) {
+            $data['messages'] = $this->messages;
+        }
+
+        if (!empty($this->validation)) {
+            $data['validation'] = $this->validation;
+        }
+
+        if (!empty($this->backtrace)) {
+            $data['backtrace'] = $this->backtrace;
+        }
+
+        return new JsonResponse($data, $this->status, $this->headers);
+    }
+
+    /**
+     * @param string $text
+     * @param int $code
+     *
+     * @return $this
+     */
+    public function addErrorMessage(string $text, int $code): Response
+    {
+        $message = [
+            'severity' => 'error',
+            'text' => $text,
+            'code' => $code
+        ];
+
+        $this->messages[] = $message;
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @param array $fields
+     * @return $this
+     */
+    public function setValidation(array $fields): Response
+    {
+        $this->validation = $fields;
+
+        return $this;
+    }
+
+    /**
+     * @param array $backtrace
+     * @return $this
+     */
+    public function setBacktrace(array $backtrace): Response
+    {
+        $this->backtrace = $backtrace;
+
+        return $this;
     }
 }
