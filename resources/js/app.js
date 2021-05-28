@@ -1,15 +1,17 @@
-import Vue     from 'vue'
-import App     from './App'
-import vuetify from './plugins/vuetify'
-import router from './router'
-import store from './store'
+import Vue        from 'vue'
+import App        from './App'
+import vuetify    from './plugins/vuetify'
+import router     from './router'
+import store      from './store'
 import Pagination from './components/Pagination'
+import Loading    from './components/Loading'
 
 require('./bootstrap');
 
 window.Vue = require('vue');
 
 Vue.component('app-pagination', Pagination)
+Vue.component('app-loading', Loading)
 
 const app = new Vue({
     el: '#app',
