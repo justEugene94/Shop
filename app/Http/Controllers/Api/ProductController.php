@@ -36,4 +36,18 @@ class ProductController
 
         return Response::make($resource);
     }
+
+    /**
+     * @return Response
+     */
+    public function getPromo(): Response
+    {
+        /** @var Product $products */
+        $products = Product::query()->inRandomOrder()->limit(5)->get();
+
+        /** @var ProductCollectionResource $resource */
+        $resource = ProductCollectionResource::collection($products);
+
+        return Response::make($resource);
+    }
 }

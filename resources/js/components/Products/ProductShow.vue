@@ -41,7 +41,7 @@ export default {
     name: 'ProductShow',
     props: {
         productId: {
-            type: String,
+            type: String|Number,
             required: true
         }
     }

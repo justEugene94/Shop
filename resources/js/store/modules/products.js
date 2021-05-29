@@ -1,7 +1,8 @@
 export default {
     state: {
         products: [],
-        product: null
+        product: null,
+        promoProducts: []
     },
     mutations: {
         loadProducts (state, payload) {
@@ -9,6 +10,9 @@ export default {
         },
         setProduct (state, payload) {
             state.product = payload
+        },
+        setPromoProducts (state, payload) {
+            state.promoProducts = payload
         }
     },
     actions: {
@@ -27,10 +31,12 @@ export default {
 
                 commit('setLoading', false)
             } catch (e) {
-                commit('setError', e.messages.error)
+                const response = e.response
+
+                commit('setError', response.data.messages[0].text)
                 commit('setLoading', false)
 
-                throw e
+                throw response
             }
         },
         async getProductById ({commit}, productId) {
@@ -44,10 +50,30 @@ export default {
                 commit('setLoading', false)
             }
             catch (e) {
-                commit('setError', e.messages.error)
+                const response = e.response
+
+                commit('setError', response.data.messages[0].text)
                 commit('setLoading', false)
 
-                throw e
+                throw response
+            }
+        },
+        async getPromoProducts ({commit}) {
+            commit('clearError')
+            commit('setLoading', true)
+
+            try {
+                const promoProducts = await axios.get('/api/promo-products')
+
+                commit('setPromoProducts', promoProducts.data.result)
+                commit('setLoading', false)
+            }catch (e) {
+                const response = e.response
+
+                commit('setError', response.data.messages[0].text)
+                commit('setLoading', false)
+
+                throw response
             }
         }
     },
@@ -57,6 +83,9 @@ export default {
         },
         product(state) {
             return state.product
+        },
+        promoProducts (state) {
+            return state.promoProducts
         }
     }
 }

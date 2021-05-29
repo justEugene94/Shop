@@ -20,5 +20,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+$router->get('promo-products', 'Api\ProductController@getPromo')->name('api.promo.products');
+
 /** Products */
 $router->apiResource('products', 'Api\ProductController')->only(['index', 'show']);
