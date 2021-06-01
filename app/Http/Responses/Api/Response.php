@@ -132,7 +132,27 @@ class Response implements Responsable
         ];
 
         $this->messages[] = $message;
-        $this->code = $code;
+        $this->status = $code;
+
+        return $this;
+    }
+
+    /**
+     * @param string $text
+     * @param int $code
+     *
+     * @return $this
+     */
+    public function addSuccessMessage(string $text, int $code): Response
+    {
+        $message = [
+            'severity' => 'success',
+            'text' => $text,
+            'code' => $code
+        ];
+
+        $this->messages[] = $message;
+        $this->status = $code;
 
         return $this;
     }

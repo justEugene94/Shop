@@ -5,52 +5,43 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Cart\AddRequest;
+use App\Http\Responses\Api\Response;
 use App\Models\Product;
 use App\Services\CartService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Ramsey\Collection\Exception\NoSuchElementException;
 
 class CartController extends Controller
 {
     /**
-     * @param Request $request
-     * @param int $product_id
+     * @var CartService
+     */
+    protected $service;
+
+    /**
+     * CartController constructor.
+     *
+     * @param CartService $service
+     */
+    public function __construct(CartService $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * @param AddRequest $request
      *
      * @return Response
      */
-    public function add(Request $request, CartService $service, int $product_id)
+    public function add(AddRequest $request): Response
     {
-        $product = Product::query()->findOrFail($product_id);
+        /** @var Product $product */
+        $product = Product::query()->findOrFail($request->getProductId());
 
-        if (!$request->session()->has('cart')) {
-            $cart = $service->addProductInCartArray($product);
+        $this->service->fill($product, $request->getCookieId(), $request->getQty(), $request->getRewrite());
 
-            $request->session()->put('cart', $cart);
-        } elseif ($request->session()->has("cart.{$product_id}")) {
-            $cart = session()->get('cart');
-            $quantity = ++$cart[$product_id]['quantity'];
-            $cart[$product_id]['total'] = $quantity * $product->price;
-            session()->put('cart', $cart);
-        } else {
-            $cart = $request->session()->get('cart');
-            $cart = $service->addProductInCartArray($product, $cart);
-            $request->session()->put('cart', $cart);
-        }
-
-        $qty = $request->session()->get('qty', 0);
-        $qty++;
-        $request->session()->put('qty', $qty);
-
-        $price = $request->session()->get('price', 0);
-        $price += $product->price;
-        $request->session()->put('price', $price);
-
-        return response([
-            'content' => $service->getHtmlContent($request->session()->get('cart'), $price),
-            'qty' => $qty,
-            'price' => $price,
-        ],200);
+        return Response::make()->addSuccessMessage('cart.add.success', JsonResponse::HTTP_CREATED);
     }
 
     /**
@@ -59,31 +50,13 @@ class CartController extends Controller
      *
      * @return Response
      */
-    public function delete(Request $request, int $product_id)
+    public function delete(Request $request, int $product_id): Response
     {
-        $product = Product::query()->findOrFail($product_id);
+        return Response::make();
+    }
 
-        if (!$request->session()->exists("cart.{$product->id}"))
-        {
-            throw new NoSuchElementException('No such element in session');
-        }
-
-        $productQty = $request->session()->get("cart.{$product->id}.quantity");
-        $productPriceTotal = $request->session()->get("cart.{$product->id}.total");
-        $oldPrice = $request->session()->get("price");
-        $oldQty = $request->session()->get("qty");
-
-        $request->session()->pull("cart.{$product->id}");
-
-        $price = $oldPrice - $productPriceTotal;
-        $qty = $oldQty - $productQty;
-
-        $request->session()->put('price', $price);
-        $request->session()->put('qty', $qty);
-
-        return response([
-            'price' => $price,
-            'qty' => $qty,
-        ], 200);
+    public function clear(): Response
+    {
+        return Response::make();
     }
 }
