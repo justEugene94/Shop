@@ -11,7 +11,6 @@ use App\Http\Requests\Api\Cart\DeleteRequest;
 use App\Http\Requests\Api\Cart\IndexRequest;
 use App\Http\Resources\Api\CartResource;
 use App\Http\Responses\Api\Response;
-use App\Models\Cart;
 use App\Models\Product;
 use App\Services\CartService;
 use Illuminate\Http\JsonResponse;

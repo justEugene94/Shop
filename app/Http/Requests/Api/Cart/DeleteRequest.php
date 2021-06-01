@@ -4,9 +4,9 @@
 namespace App\Http\Requests\Api\Cart;
 
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\CartRequest;
 
-class DeleteRequest extends FormRequest
+class DeleteRequest extends CartRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class DeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return parent::authorize();
     }
 
     /**
@@ -25,18 +25,11 @@ class DeleteRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'cookie_id' => 'required|string|max:800',
-            'product_id' => 'required|exists:products,id',
-        ];
-    }
+        $parentRules = parent::rules();
 
-    /**
-     * @return string
-     */
-    public function getCookieId(): string
-    {
-        return $this->input('cookie_id');
+        return array_merge($parentRules, [
+            'product_id' => 'required|exists:products,id',
+        ]);
     }
 
     /**

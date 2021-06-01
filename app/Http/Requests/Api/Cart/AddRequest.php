@@ -4,9 +4,9 @@
 namespace App\Http\Requests\Api\Cart;
 
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\CartRequest;
 
-class AddRequest extends FormRequest
+class AddRequest extends CartRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class AddRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return parent::authorize();
     }
 
     /**
@@ -25,20 +25,13 @@ class AddRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'cookie_id' => 'required|string|max:800',
+        $parentRules = parent::rules();
+
+        return array_merge($parentRules, [
             'product_id' => 'required|exists:products,id',
             'qty' => 'integer',
             'rewrite' => 'bool'
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getCookieId(): string
-    {
-        return $this->input('cookie_id');
+        ]);
     }
 
     /**
