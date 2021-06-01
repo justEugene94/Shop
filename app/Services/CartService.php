@@ -47,4 +47,16 @@ class CartService
 
         return $this;
     }
+
+    /**
+     * @param string $cookieId
+     *
+     * @return $this
+     */
+    public function clear(string $cookieId): CartService
+    {
+        Cart::query()->where('cookie_id', '=', $cookieId)->delete();
+
+        return $this;
+    }
 }

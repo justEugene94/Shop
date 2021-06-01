@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Cart\AddRequest;
+use App\Http\Requests\Api\Cart\ClearRequest;
 use App\Http\Requests\Api\Cart\DeleteRequest;
 use App\Http\Responses\Api\Response;
 use App\Models\Product;
@@ -60,8 +61,15 @@ class CartController extends Controller
         return Response::make()->addSuccessMessage('cart.delete.success', JsonResponse::HTTP_OK);
     }
 
-    public function clear(): Response
+    /**
+     * @param ClearRequest $request
+     * 
+     * @return Response
+     */
+    public function clear(ClearRequest $request): Response
     {
-        return Response::make();
+        $this->service->clear($request->getCookieId());
+
+        return Response::make()->addSuccessMessage('cart.clear.success', JsonResponse::HTTP_OK);
     }
 }

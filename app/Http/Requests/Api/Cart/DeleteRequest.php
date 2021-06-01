@@ -32,9 +32,9 @@ class DeleteRequest extends FormRequest
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getCookieId(): int
+    public function getCookieId(): string
     {
         return $this->input('cookie_id');
     }
