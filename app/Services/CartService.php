@@ -31,4 +31,20 @@ class CartService
 
         return $this;
     }
+
+    /**
+     * @param Product $product
+     * @param string $cookieId
+     *
+     * @return $this
+     */
+    public function delete(Product $product, string $cookieId): CartService
+    {
+        Cart::query()->where([
+            ['product_id', '=', $product->id],
+            ['cookie_id', '=', $cookieId]
+        ])->delete();
+
+        return $this;
+    }
 }
