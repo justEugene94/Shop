@@ -9,6 +9,19 @@ use App\Models\Product;
 class CartService
 {
     /**
+     * @param string $cookieId
+     *
+     * @return Cart
+     */
+    public function get(string $cookieId): Cart
+    {
+        /** @var Cart $cartProducts */
+        $cartProducts = Cart::query()->with('product')->where('cookie_id', '=', $cookieId)->get();
+
+        return $cartProducts;
+    }
+
+    /**
      * @param Product $product
      * @param string $cookieId
      * @param int $qty
