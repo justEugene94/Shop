@@ -17,17 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 $router->view('{any}', 'index')->where('any', '.*');
 
-///** Home */
-//$router->get('/', [
-//    'as' => 'home',
-//    'uses' => 'IndexController@index'
-//]);
-//
-///** Product */
-//$router->get('/products/{product_id}', [
-//    'as' => 'product',
-//    'uses' => 'IndexController@show'
-//]);
 //
 ///** Checkout */
 //$router->get('/checkout', [
@@ -52,18 +41,6 @@ $router->view('{any}', 'index')->where('any', '.*');
 //
 //    'as' => 'checkout.update.status',
 //    'uses' => 'Api\OrderController@updateStatus'
-//]);
-//
-///** Add to Cart */
-//$router->post('/products/{product_id}/add-to-cart', [
-//    'as' => 'products.add-to-cart',
-//    'uses' => 'Api\CartController@add'
-//]);
-//
-///** Delete from Cart */
-//$router->delete('/products/{product_id}/delete-from-cart', [
-//    'as' => 'products.delete-from-cart',
-//    'uses' => 'Api\CartController@delete'
 //]);
 //
 ///** Get Areas From Nova Poshta */
