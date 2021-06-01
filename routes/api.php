@@ -25,11 +25,8 @@ $router->get('promo-products', 'Api\ProductController@getPromo')->name('api.prom
 /** Products */
 $router->apiResource('products', 'Api\ProductController')->only(['index', 'show']);
 
-/** Add to Cart */
+/** Cart */
+$router->get('/cart', 'Api\CartController@index')->name('api.cart');
 $router->post('/cart/add', 'Api\CartController@add')->name('api.cart.add');
-
-/** Delete from Cart */
 $router->delete('/cart/delete', 'Api\CartController@delete')->name('api.cart.delete');
-
-/** Delete all from Cart */
 $router->delete('/cart/clear', 'Api\CartController@delete')->name('api.cart.clear');
