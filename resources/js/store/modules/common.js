@@ -1,46 +1,46 @@
 export default {
     state: {
         loading: false,
-        error: null,
+        notifications: null,
         pagination: null
     },
     mutations: {
         setLoading (state, payload) {
             state.loading = payload
         },
-        setError (state, payload) {
-            state.error = payload
-        },
-        clearError (state) {
-            state.error = null
-        },
         setPagination (state, payload) {
             state.pagination = payload
+        },
+        setNotifications (state, payload) {
+            state.notifications = payload
+        },
+        clearNotifications (state) {
+            state.notifications = null
         }
     },
     actions: {
         setLoading ({commit}, payload) {
             commit('setLoading', payload)
         },
-        setError ({commit}, payload) {
-            commit('setError', payload)
-        },
-        clearError ({commit}) {
-            commit('clearError')
-        },
         setPagination ({commit}, payload) {
             commit('setPagination', payload)
-        }
+        },
+        setNotifications ({commit}, payload) {
+            commit('setNotifications', payload)
+        },
+        clearNotifications ({commit}) {
+            commit('setNotifications')
+        },
     },
     getters: {
         loading (state) {
             return state.loading
         },
-        error (state) {
-            return state.error
-        },
         pagination (state) {
             return state.pagination
+        },
+        notifications (state) {
+            return state.notifications
         }
     }
 }

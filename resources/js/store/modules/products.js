@@ -17,7 +17,7 @@ export default {
     },
     actions: {
         async fetchProducts ({commit}, page) {
-            commit('clearError')
+            commit('clearNotifications')
             commit('setLoading', true)
 
             try {
@@ -33,14 +33,14 @@ export default {
             } catch (e) {
                 const response = e.response
 
-                commit('setError', response.data.messages[0].text)
+                commit('setNotifications', response.data.messages)
                 commit('setLoading', false)
 
                 throw response
             }
         },
         async getProductById ({commit}, productId) {
-            commit('clearError')
+            commit('clearNotifications')
             commit('setLoading', true)
 
             try {
@@ -52,14 +52,14 @@ export default {
             catch (e) {
                 const response = e.response
 
-                commit('setError', response.data.messages[0].text)
+                commit('setNotifications', response.data.messages)
                 commit('setLoading', false)
 
                 throw response
             }
         },
         async getPromoProducts ({commit}) {
-            commit('clearError')
+            commit('clearNotifications')
             commit('setLoading', true)
 
             try {
@@ -70,7 +70,7 @@ export default {
             }catch (e) {
                 const response = e.response
 
-                commit('setError', response.data.messages[0].text)
+                commit('setNotifications', response.data.messages)
                 commit('setLoading', false)
 
                 throw response

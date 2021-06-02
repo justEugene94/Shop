@@ -60,17 +60,17 @@
             <router-view/>
         </v-main>
 
-        <app-error></app-error>
+        <app-notifications></app-notifications>
     </v-app>
 </template>
 
 <script>
-import Error from './components/Error'
+import Notifications from './components/Notifications'
 
 export default {
     name: 'App',
     components: {
-        appError: Error
+        appNotifications: Notifications
     },
     computed: {
         error () {
