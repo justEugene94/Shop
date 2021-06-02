@@ -5,20 +5,17 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 class CartService
 {
     /**
      * @param string $cookieId
-     *
-     * @return Cart
+     * @return Collection
      */
-    public function get(string $cookieId): Cart
+    public function get(string $cookieId): Collection
     {
-        /** @var Cart $cartProducts */
-        $cartProducts = Cart::query()->with('product')->where('cookie_id', '=', $cookieId)->get();
-
-        return $cartProducts;
+        return Cart::query()->with('product')->where('cookie_id', '=', $cookieId)->get();
     }
 
     /**
@@ -41,6 +38,8 @@ class CartService
         $cart->fill([
             'qty' => $rewrite ? $qty : $cart->qty + $qty
         ]);
+
+        $cart->save();
 
         return $this;
     }
