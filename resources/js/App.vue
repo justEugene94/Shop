@@ -60,32 +60,18 @@
             <router-view/>
         </v-main>
 
-        <template v-if="error">
-            <v-snackbar
-                :multi-line="true"
-                color="error"
-                @input="closeError"
-                :value="true"
-            >
-                {{ error }}
-                <template v-slot:action="{ attrs }">
-                    <v-btn
-                        dark
-                        text
-                        v-bind="attrs"
-                        @click="closeError"
-                    >
-                        Close
-                    </v-btn>
-                </template>
-            </v-snackbar>
-        </template>
+        <app-error></app-error>
     </v-app>
 </template>
 
 <script>
+import Error from './components/Error'
+
 export default {
     name: 'App',
+    components: {
+        appError: Error
+    },
     computed: {
         error () {
             return this.$store.getters.error
@@ -97,11 +83,6 @@ export default {
                 {title: 'About us', icon: 'mdi-information-outline', url: '/about'},
                 {title: 'Contacts', icon: 'mdi-phone-outline', url: '/contacts'},
             ]
-        }
-    },
-    methods: {
-        closeError () {
-            this.$store.dispatch('clearError')
         }
     }
 }
