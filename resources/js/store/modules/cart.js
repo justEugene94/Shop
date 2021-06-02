@@ -1,5 +1,4 @@
-import { uuid } from 'vue-uuid';
-import Vue from 'vue';
+import Vue from 'vue'
 
 export default {
     state: {
@@ -17,7 +16,10 @@ export default {
             state.cart = []
             state.cartCount = 0
         },
-        REMOVE_PRODUCT_FROM_CART(state, productId) {
+        REMOVE_PRODUCT_FROM_CART (state, productId) {
+            const cartProduct = state.cart.find(item => item.product.id === productId)
+            state.cartCount -= cartProduct.qty
+
             const index = state.cart.map(item => item.product.id).indexOf(productId)
             state.cart.splice(index, 1)
         }
@@ -47,15 +49,10 @@ export default {
                 throw response
             }
         },
-        async addProductInCart ({commit}, {productId, qty, rewrite}) {
+        async addProductInCart ({commit, getters}, {productId, qty, rewrite}) {
             commit('CLEAR_NOTIFICATIONS')
 
-            if (!Vue.$cookies.isKey('cartId')) {
-                Vue.$cookies.set('cartId', uuid.v4(), 60*60*24)
-            }
-
             const cookieId = Vue.$cookies.get('cartId')
-
 
             try {
                 const response = await axios.post('/api/cart/add', {
@@ -65,6 +62,7 @@ export default {
                     rewrite
                 })
 
+                commit('SET_CART_COUNT', getters.cartCount + 1)
                 commit('SET_NOTIFICATIONS', response.data.messages)
             } catch (e) {
                 const response = e.response
@@ -98,6 +96,27 @@ export default {
 
                 commit('SET_NOTIFICATIONS', response.data.messages)
                 commit('SET_LOADING', false)
+
+                throw response
+            }
+        },
+        async getProductsCount ({commit}) {
+            commit('CLEAR_NOTIFICATIONS')
+
+            const cookieId = Vue.$cookies.get('cartId')
+
+            try {
+                const productsCount = await axios.get('/api/cart/products-count', {
+                    params: {
+                        cookie_id: cookieId
+                    }
+                })
+
+                commit('SET_CART_COUNT', productsCount.data.result.productsCount)
+            } catch (e) {
+                const response = e.response
+
+                commit('SET_NOTIFICATIONS', response.data.messages)
 
                 throw response
             }

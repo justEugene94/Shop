@@ -16,10 +16,11 @@
 
                 <v-list-item-content>
                     <v-list-item-title v-html="cartItem.product.title"></v-list-item-title>
-                    <v-list-item-subtitle v-html="cartItem.product.description"></v-list-item-subtitle>
+                    <v-list-item-subtitle v-html="'Quantity: ' + cartItem.qty"></v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-action>
+                    <v-divider></v-divider>
                     <v-btn
                         dark
                         color="red"

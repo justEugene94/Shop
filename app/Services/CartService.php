@@ -71,4 +71,14 @@ class CartService
 
         return $this;
     }
+
+    /**
+     * @param string $cookieId
+     *
+     * @return int
+     */
+    public function productsCount(string $cookieId): int
+    {
+        return Cart::query()->where('cookie_id', '=', $cookieId)->sum('qty');
+    }
 }

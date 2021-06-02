@@ -51,8 +51,9 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn icon to="/cart">
-                <v-icon>mdi-cart-outline</v-icon>
+            <v-btn to="/cart" plain>
+                <h4>({{ productsCount }})</h4>
+                <v-icon right>mdi-cart-outline</v-icon>
             </v-btn>
         </v-app-bar>
 
@@ -66,6 +67,8 @@
 
 <script>
 import Notifications from './components/Common/Notifications'
+import Vue           from 'vue'
+import { uuid }      from 'vue-uuid'
 
 export default {
     name: 'App',
@@ -76,6 +79,9 @@ export default {
         error () {
             return this.$store.getters.error
         },
+        productsCount () {
+            return this.$store.getters.cartCount
+        },
         links () {
             return [
                 {title: 'Home', icon: 'mdi-home-outline', url: '/'},
@@ -84,15 +90,22 @@ export default {
                 {title: 'Contacts', icon: 'mdi-phone-outline', url: '/contacts'},
             ]
         }
+    },
+    created () {
+        if (!Vue.$cookies.isKey('cartId')) {
+            Vue.$cookies.set('cartId', uuid.v4(), 60 * 60 * 24)
+        }
+        this.$store.dispatch('getProductsCount').catch(() => {})
     }
 }
 </script>
 
 <style>
-    .pointer {
-        cursor: pointer;
-    }
-    h2 {
-        margin: 5% auto;
-    }
+.pointer {
+    cursor: pointer;
+}
+
+h2 {
+    margin: 5% auto;
+}
 </style>

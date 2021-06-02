@@ -30,3 +30,4 @@ $router->get('/cart', 'Api\CartController@index')->name('api.cart');
 $router->post('/cart/add', 'Api\CartController@add')->name('api.cart.add');
 $router->delete('/cart/delete', 'Api\CartController@delete')->name('api.cart.delete');
 $router->delete('/cart/clear', 'Api\CartController@delete')->name('api.cart.clear');
+$router->get('/cart/products-count', 'Api\CartController@productsCount')->name('api.cart.products.count');

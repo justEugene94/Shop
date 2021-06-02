@@ -88,4 +88,16 @@ class CartController extends Controller
 
         return Response::make()->addSuccessMessage('cart.clear.success', JsonResponse::HTTP_OK);
     }
+
+    /**
+     * @param IndexRequest $request
+     *
+     * @return Response
+     */
+    public function productsCount(IndexRequest $request): Response
+    {
+        $productsCount = $this->service->productsCount($request->getCookieId());
+
+        return Response::make(['productsCount' => $productsCount]);
+    }
 }
