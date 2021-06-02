@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import Notifications from './components/Notifications'
+import Notifications from './components/Common/Notifications'
 
 export default {
     name: 'App',

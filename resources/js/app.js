@@ -3,8 +3,8 @@ import App        from './App'
 import vuetify    from './plugins/vuetify'
 import router     from './router'
 import store      from './store'
-import Pagination from './components/Pagination'
-import Loading    from './components/Loading'
+import Pagination from './components/Common/Pagination'
+import Loading    from './components/Common/Loading'
 
 require('./bootstrap');
 
