@@ -30,12 +30,7 @@
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn
-                                    color="error"
-                                    depressed
-                                >
-                                    Buy
-                                </v-btn>
+                                <app-add-to-cart-button></app-add-to-cart-button>
                                 <v-btn
                                     text
                                     :to="{name: 'productShow', params: {'productId': product.id}}"

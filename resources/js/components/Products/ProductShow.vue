@@ -22,12 +22,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn
-                            color="error"
-                            depressed
-                        >
-                            Buy
-                        </v-btn>
+                        <app-add-to-cart-button></app-add-to-cart-button>
                     </v-card-actions>
                 </v-card>
                 <app-loading></app-loading>

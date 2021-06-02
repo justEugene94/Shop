@@ -16,11 +16,7 @@
                                         :to="{name: 'productShow', params: {'productId': product.id}}"
                                     >{{ product.title }}
                                     </v-btn>
-                                    <v-btn
-                                    class="error"
-                                    >
-                                        Buy
-                                    </v-btn>
+                                    <app-add-to-cart-button></app-add-to-cart-button>
                                 </div>
                             </v-carousel-item>
                         </v-carousel>
