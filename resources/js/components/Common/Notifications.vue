@@ -9,7 +9,6 @@
                 :color="notification.severity"
                 @input="close"
                 :value="true"
-                :timeout="timeout"
             >
                 {{ notification.text }}
                 <template v-slot:action="{ attrs }">
@@ -42,7 +41,7 @@ export default {
     },
     methods: {
         close () {
-            this.$store.dispatch('clearNotifications')
+            this.$store.dispatch('clearNotifications').catch(() => {})
         }
     }
 }

@@ -30,7 +30,7 @@
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <app-add-to-cart-button></app-add-to-cart-button>
+                                <app-add-to-cart-button :productId="product.id"></app-add-to-cart-button>
                                 <v-btn
                                     text
                                     :to="{name: 'productShow', params: {'productId': product.id}}"

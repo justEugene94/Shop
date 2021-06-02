@@ -22,7 +22,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <app-add-to-cart-button></app-add-to-cart-button>
+                        <app-add-to-cart-button :productId="product.id"></app-add-to-cart-button>
                     </v-card-actions>
                 </v-card>
                 <app-loading></app-loading>

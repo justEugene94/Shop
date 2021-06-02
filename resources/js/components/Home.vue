@@ -16,7 +16,7 @@
                                         :to="{name: 'productShow', params: {'productId': product.id}}"
                                     >{{ product.title }}
                                     </v-btn>
-                                    <app-add-to-cart-button></app-add-to-cart-button>
+                                    <app-add-to-cart-button :productId="product.id"></app-add-to-cart-button>
                                 </div>
                             </v-carousel-item>
                         </v-carousel>
