@@ -5,73 +5,73 @@ export default {
         promoProducts: []
     },
     mutations: {
-        loadProducts (state, payload) {
+        LOAD_PRODUCTS (state, payload) {
             state.products = payload
         },
-        setProduct (state, payload) {
+        SET_PRODUCT (state, payload) {
             state.product = payload
         },
-        setPromoProducts (state, payload) {
+        SET_PROMO_PRODUCTS (state, payload) {
             state.promoProducts = payload
         }
     },
     actions: {
         async fetchProducts ({commit}, page) {
-            commit('clearNotifications')
-            commit('setLoading', true)
+            commit('CLEAR_NOTIFICATIONS')
+            commit('SET_LOADING', true)
 
             try {
                 const products = await axios.get('/api/products/?page=' + page)
 
-                commit('loadProducts', products.data.result)
+                commit('LOAD_PRODUCTS', products.data.result)
 
                 if (typeof products.data.pagination !== 'undefined') {
-                    commit('setPagination', products.data.pagination.meta)
+                    commit('SET_PAGINATION', products.data.pagination.meta)
                 }
 
-                commit('setLoading', false)
+                commit('SET_LOADING', false)
             } catch (e) {
                 const response = e.response
 
-                commit('setNotifications', response.data.messages)
-                commit('setLoading', false)
+                commit('SET_NOTIFICATIONS', response.data.messages)
+                commit('SET_LOADING', false)
 
                 throw response
             }
         },
         async getProductById ({commit}, productId) {
-            commit('clearNotifications')
-            commit('setLoading', true)
+            commit('CLEAR_NOTIFICATIONS')
+            commit('SET_LOADING', true)
 
             try {
                 const product = await axios.get('/api/products/' + productId)
 
-                commit('setProduct', product.data.result)
-                commit('setLoading', false)
+                commit('SET_PRODUCT', product.data.result)
+                commit('SET_LOADING', false)
             }
             catch (e) {
                 const response = e.response
 
-                commit('setNotifications', response.data.messages)
-                commit('setLoading', false)
+                commit('SET_NOTIFICATIONS', response.data.messages)
+                commit('SET_LOADING', false)
 
                 throw response
             }
         },
         async getPromoProducts ({commit}) {
-            commit('clearNotifications')
-            commit('setLoading', true)
+            commit('CLEAR_NOTIFICATIONS')
+            commit('SET_LOADING', true)
 
             try {
                 const promoProducts = await axios.get('/api/promo-products')
 
-                commit('setPromoProducts', promoProducts.data.result)
-                commit('setLoading', false)
+                commit('SET_PROMO_PRODUCTS', promoProducts.data.result)
+                commit('SET_LOADING', false)
             }catch (e) {
                 const response = e.response
 
-                commit('setNotifications', response.data.messages)
-                commit('setLoading', false)
+                commit('SET_NOTIFICATIONS', response.data.messages)
+                commit('SET_LOADING', false)
 
                 throw response
             }

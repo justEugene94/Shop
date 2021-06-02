@@ -19,6 +19,20 @@
                     <v-list-item-subtitle v-html="cartItem.product.description"></v-list-item-subtitle>
                 </v-list-item-content>
 
+                <v-list-item-action>
+                    <v-btn
+                        dark
+                        color="red"
+                        depressed
+                        @click="deleteItem(cartItem.product.id)"
+                    >
+                        <v-icon left>
+                            mdi-delete-circle-outline
+                        </v-icon>
+                        Delete
+                    </v-btn>
+                </v-list-item-action>
+
             </v-list-item>
 
             <v-divider
@@ -36,6 +50,11 @@ export default {
     computed: {
         cart () {
             return this.$store.getters.cart
+        }
+    },
+    methods: {
+        deleteItem(productId) {
+            this.$store.dispatch('deleteProductFromCart', productId).catch(() => {})
         }
     },
     created () {

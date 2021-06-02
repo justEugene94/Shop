@@ -5,31 +5,31 @@ export default {
         pagination: null
     },
     mutations: {
-        setLoading (state, payload) {
+        SET_LOADING (state, payload) {
             state.loading = payload
         },
-        setPagination (state, payload) {
+        SET_PAGINATION (state, payload) {
             state.pagination = payload
         },
-        setNotifications (state, payload) {
+        SET_NOTIFICATIONS (state, payload) {
             state.notifications = payload
         },
-        clearNotifications (state) {
+        CLEAR_NOTIFICATIONS (state) {
             state.notifications = null
         }
     },
     actions: {
         setLoading ({commit}, payload) {
-            commit('setLoading', payload)
+            commit('SET_LOADING', payload)
         },
         setPagination ({commit}, payload) {
-            commit('setPagination', payload)
+            commit('SET_PAGINATION', payload)
         },
         setNotifications ({commit}, payload) {
-            commit('setNotifications', payload)
+            commit('SET_NOTIFICATIONS', payload)
         },
         clearNotifications ({commit}) {
-            commit('setNotifications')
+            commit('CLEAR_NOTIFICATIONS')
         },
     },
     getters: {
