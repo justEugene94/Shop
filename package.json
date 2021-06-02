@@ -24,7 +24,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "vue-cookies": "^1.7.4",
         "vue-router": "^3.5.1",
+        "vue-uuid": "^2.0.2",
         "vuetify": "^2.5.1",
         "vuex": "^3.6.2"
     }
