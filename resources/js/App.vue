@@ -36,7 +36,7 @@
         >
             <v-toolbar-title>
                 <router-link
-                    to="/"
+                    :to="{name: 'home'}"
                     class="pointer"
                     custom v-slot="{ navigate }"
                 >
