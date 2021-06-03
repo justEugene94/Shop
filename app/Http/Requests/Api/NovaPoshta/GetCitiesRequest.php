@@ -7,7 +7,7 @@ namespace App\Http\Requests\Api\NovaPoshta;
 use App\Http\Requests\Api\NovaPoshtaRequest;
 
 
-class GetWarehousesRequest extends NovaPoshtaRequest
+class GetCitiesRequest extends NovaPoshtaRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -31,3 +31,7 @@ $router->post('/cart/add', 'Api\CartController@add')->name('api.cart.add');
 $router->delete('/cart/delete', 'Api\CartController@delete')->name('api.cart.delete');
 $router->delete('/cart/clear', 'Api\CartController@delete')->name('api.cart.clear');
 $router->get('/cart/products-count', 'Api\CartController@productsCount')->name('api.cart.products.count');
+
+/** Nova Poshta */
+$router->get('/nova-poshta/cities', 'Api\NovaPoshtaController@getCities')->name('nova-poshta.cities');
+$router->get('/nova-poshta/warehouses', 'Api\NovaPoshtaController@getWarehouses')->name('nova-poshta.warehouses');

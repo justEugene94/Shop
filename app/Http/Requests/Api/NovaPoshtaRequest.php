@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Http\Requests\Api\NovaPoshta;
+namespace App\Http\Requests\Api;
 
 
-use App\Http\Requests\Api\NovaPoshtaRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 
-class GetWarehousesRequest extends NovaPoshtaRequest
+class NovaPoshtaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class GetWarehousesRequest extends NovaPoshtaRequest
      */
     public function authorize(): bool
     {
-        return parent::authorize();
+        return true;
     }
 
     /**
@@ -26,6 +26,13 @@ class GetWarehousesRequest extends NovaPoshtaRequest
      */
     public function rules(): array
     {
-        return parent::rules();
+        return [
+            'city' => 'required|string|max:50',
+        ];
+    }
+
+    public function getCity(): string
+    {
+        return $this->input('city');
     }
 }
