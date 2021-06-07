@@ -14,7 +14,7 @@ class CityService
      *
      * @return City
      */
-    public function getOrCreate(string $npId, string $city): City
+    public function firstOrCreate(string $npId, string $city): City
     {
         /** @var City $city */
         $city =  City::query()->firstOrCreate(['np_id' => $npId], [

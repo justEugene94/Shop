@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\Customer;
 use App\Models\NPDepartment;
 use Daaner\NovaPoshta\Models\Address;
+use Illuminate\Database\Eloquent\Model;
 
 class NPDepartmentService
 {
@@ -25,18 +26,21 @@ class NPDepartmentService
      *
      * @return NPDepartment
      */
-    public function create(Customer $customer, string $city, string $np_json): NPDepartment
+    public function firstOrCreate(Customer $customer, string $city, string $np_json): NPDepartment
     {
         $arrayNP = json_decode($np_json, true);
 
-        $city = $this->cityService->getOrCreate($arrayNP['CityRef'], $city);
+        $city = $this->cityService->firstOrCreate($arrayNP['CityRef'], $city);
 
-        $department = new NPDepartment([
-            'np_id'      => $arrayNP['Ref'],
+        /** @var NPDepartment $department */
+        $department = NPDepartment::query()->firstOrCreate([
+            'city_id' => $city->id,
+            'np_id' => $arrayNP['Ref'],
+        ], [
+            'city_id' => $city->id,
+            'np_id' => $arrayNP['Ref'],
             'department' => $arrayNP['DescriptionRu'],
         ]);
-
-        $city->npDepartments()->save($department);
 
         $customer->npDepartments()->attach($department->id);
 

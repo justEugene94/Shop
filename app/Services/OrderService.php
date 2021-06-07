@@ -17,7 +17,7 @@ class OrderService
      * @param Customer $customer
      * @param NPDepartment $department
      * @param Stripe\PaymentIntent $paymentIntent
-     *
+     * @param int $amount
      * @return Order
      */
     public function create(Customer $customer, NPDepartment $department, Stripe\PaymentIntent $paymentIntent, int $amount): Order
@@ -65,6 +65,7 @@ class OrderService
 
     /**
      * @param Order $order
+     * @throws Stripe\Exception\ApiErrorException
      */
     public function updateOrderStatus(Order $order): void
     {

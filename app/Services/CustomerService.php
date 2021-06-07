@@ -13,10 +13,10 @@ class CustomerService
      * @param string $last_name
      * @param string $email
      * @param string $phoneNumber
-     * 
+     *
      * @return Customer
      */
-    public function create(string $first_name, string $last_name, string $email, string $phoneNumber): Customer
+    public function firstOrCreate(string $first_name, string $last_name, string $email, string $phoneNumber): Customer
     {
         /** @var Customer $customer */
         $customer = Customer::query()->firstOrCreate(['phone_number' => $phoneNumber], [

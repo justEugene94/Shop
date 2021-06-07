@@ -79,6 +79,40 @@ class CartService
      */
     public function productsCount(string $cookieId): int
     {
-        return Cart::query()->where('cookie_id', '=', $cookieId)->sum('qty');
+        return Cart::query()
+            ->select('qty')
+            ->where('cookie_id', '=', $cookieId)
+            ->sum('qty');
+    }
+
+    /**
+     * @param string $cookieId
+     *
+     * @return bool
+     */
+    public function checkProducts(string $cookieId): bool
+    {
+        if ($this->productsCount($cookieId) == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param string $cookieId
+     *
+     * @return int
+     */
+    public function getAmount(string $cookieId): int
+    {
+        $amount = 0;
+        Cart::query()
+            ->with('product')
+            ->where('cookie_id', '=', $cookieId)
+            ->each(function (Cart $cart) use ($amount) {
+                $amount += $cart->qty * $cart->product->price;
+            });
+
+        return $amount;
     }
 }

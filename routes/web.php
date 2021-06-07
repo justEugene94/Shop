@@ -15,21 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 /** @var Route $router */
 
-$router->view('{any}', 'index')->where('any', '.*');
+$router->view('{any}', 'index')->where('any', '^(?!api).*$');
 
-//
-///** Checkout */
-//$router->get('/checkout', [
-//    'as' => 'checkout.index',
-//    'uses' => 'CheckoutController@index'
-//]);
-//
-///** Add Order */
-//$router->post('/checkout/store', [
-//    'as' => 'checkout.store',
-//    'uses' =>  'CheckoutController@store'
-//]);
-//
 ///** Payment page */
 //$router->get('/checkout/{order_id}/payment', [
 //    'as' => 'checkout.payment',
@@ -41,16 +28,4 @@ $router->view('{any}', 'index')->where('any', '.*');
 //
 //    'as' => 'checkout.update.status',
 //    'uses' => 'Api\OrderController@updateStatus'
-//]);
-//
-///** Get Areas From Nova Poshta */
-//$router->post('/nova-poshta/warehouses', [
-//    'as' => 'nova-poshta.warehouses',
-//    'uses' => 'Api\NovaPoshtaController@getWarehouses',
-//]);
-//
-///** Thank you page */
-//$router->get('/orders/{order_id}/thankyou', [
-//    'as' => 'thankyou',
-//    'uses' => 'CheckoutController@getThankYouPage'
 //]);
