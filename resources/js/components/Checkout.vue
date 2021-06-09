@@ -165,7 +165,6 @@ export default {
             return this.$store.getters.warehouses
         },
         validationErrors () {
-            console.log(this.$store.getters.validationErrors)
             return this.$store.getters.validationErrors
         }
     },
