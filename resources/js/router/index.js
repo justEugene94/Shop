@@ -8,6 +8,7 @@ import About       from '../components/About'
 import Contacts    from '../components/Contacts'
 import Cart        from '../components/Cart'
 import Checkout    from '../components/Checkout'
+import Payment    from '../components/Payment'
 
 Vue.use(Router)
 
@@ -48,6 +49,11 @@ export default new Router({
             path: '/checkout',
             name: 'checkout',
             component: Checkout
+        },
+        {
+            path: '/payment',
+            name: 'payment',
+            component: Payment
         }
     ],
     mode: 'history'

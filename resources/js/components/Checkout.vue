@@ -16,6 +16,7 @@
                         :rules="nameRules"
                         :counter="10"
                         label="First name"
+                        :error-messages="validationErrors && validationErrors['first_name']"
                         required
                     ></v-text-field>
                 </v-col>
@@ -29,6 +30,7 @@
                         :rules="nameRules"
                         :counter="10"
                         label="Last name"
+                        :error-messages="validationErrors && validationErrors['last_name']"
                         required
                     ></v-text-field>
                 </v-col>
@@ -45,6 +47,7 @@
                         v-model="email"
                         :rules="emailRules"
                         label="E-mail"
+                        :error-messages="validationErrors && validationErrors['email']"
                         required
                     ></v-text-field>
                 </v-col>
@@ -58,6 +61,7 @@
                         :rules="phoneRules"
                         label="Phone Number"
                         :counter="12"
+                        :error-messages="validationErrors && validationErrors['phone_number']"
                         required
                     ></v-text-field>
                 </v-col>
@@ -81,6 +85,9 @@
                             type to search your city...
                         </template>
                     </v-select>
+                    <div v-if="validationErrors && validationErrors['city']" class="invalid-feedback">
+                        {{ validationErrors['city'][0] }}
+                    </div>
                 </v-col>
                 <v-col
                     cols="12"
@@ -97,6 +104,9 @@
                             type to search your warehouse...
                         </template>
                     </v-select>
+                    <div v-if="validationErrors && validationErrors['np_json']" class="invalid-feedback">
+                        {{ validationErrors['np_json'][0] }}
+                    </div>
                 </v-col>
             </v-row>
             <v-layout row>
@@ -153,6 +163,10 @@ export default {
         },
         warehouses () {
             return this.$store.getters.warehouses
+        },
+        validationErrors () {
+            console.log(this.$store.getters.validationErrors)
+            return this.$store.getters.validationErrors
         }
     },
     components: {
@@ -174,20 +188,20 @@ export default {
             if (this.$refs.form.validate()) {
 
                 const order = {
-                    first_name: this.firstName,
-                    last_name: this.lastName,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
                     email: this.email,
-                    phone_number: this.phone,
+                    phoneNumber: this.phone,
                     city: this.city.DescriptionRu,
-                    warehouse:this.warehouse
+                    warehouse: this.warehouse
 
                 }
-                // todo: module Order
-                // this.$store.dispatch('createOrder', order)
-                //     .then(() => {
-                //         this.$router.push('/payment')
-                //     })
-                //     .catch(() => {})
+
+                this.$store.dispatch('createOrder', order)
+                    .then(() => {
+                        this.$router.push('/payment')
+                    })
+                    .catch(() => {})
             }
         }
     }
@@ -195,5 +209,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .invalid-feedback {
+        display: block;
+    }
 </style>

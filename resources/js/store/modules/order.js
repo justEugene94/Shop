@@ -10,9 +10,10 @@ export default {
         }
     },
     actions: {
-        async createOrder ({commit}, {firstName, lastName, email, mobilePhone, city, warehouse}) {
+        async createOrder ({commit}, {firstName, lastName, email, phoneNumber, city, warehouse}) {
             commit('CLEAR_NOTIFICATIONS')
             commit('SET_LOADING', true)
+            commit('CLEAR_VALIDATION_ERRORS')
 
             const cookieId = Vue.$cookies.get('cartId')
 
@@ -22,15 +23,20 @@ export default {
                     first_name: firstName,
                     last_name: lastName,
                     email: email,
-                    mobile_phone: mobilePhone,
+                    mobile_phone: phoneNumber,
                     city: city,
-                    np_json: warehouse,
+                    np_json: JSON.stringify(warehouse),
                 })
 
                 commit('SET_ORDER', order.data.result)
                 commit('SET_LOADING', false)
             } catch (e) {
                 commit('SET_NOTIFICATIONS', e.response.data.messages)
+
+                if (e.response.data.validation) {
+                    commit('SET_VALIDATION_ERRORS', e.response.data.validation)
+                }
+
                 commit('SET_LOADING', false)
 
                 throw e
