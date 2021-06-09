@@ -101,7 +101,7 @@ class OrderController extends Controller
 
         $resource = OrderResource::make($order);
 
-        return Response::make();
+        return Response::make($resource);
     }
 
     /**
