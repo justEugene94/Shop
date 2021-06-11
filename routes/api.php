@@ -38,3 +38,4 @@ $router->get('/nova-poshta/warehouses', 'Api\NovaPoshtaController@getWarehouses'
 
 /** Order */
 $router->post('/orders', 'Api\OrderController@store')->name('api.orders.store');
+$router->post('/orders/{order}', 'Api\OrderController@pay')->name('api.orders.pay');

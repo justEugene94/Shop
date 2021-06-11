@@ -24,7 +24,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Order extends Model
 {
-    const CURRENCY = 'UAH';
+    public const CURRENCY     = 'UAH';
+    public const STATUS_ERROR = 'error';
 
     /** Array with statuses
      * @key is a local status

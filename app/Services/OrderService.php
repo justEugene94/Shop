@@ -76,30 +76,53 @@ class OrderService
 
     /**
      * @param Order $order
-     * @throws Stripe\Exception\ApiErrorException
+     *
+     * @return bool
      */
-    public function updateOrderStatus(Order $order): void
+    public function isPayed(Order $order): bool
     {
-        $paymentIntent = Stripe\PaymentIntent::retrieve($order->stripe_order_id);
+        return $order->status_id === Status::PAID;
+    }
 
-        if (in_array($paymentIntent->status, $order->statuses))
+    /**
+     * @param Order $order
+     *
+     * @return bool
+     */
+    public function isError(Order $order): bool
+    {
+        return $order->status_id === Status::ERROR;
+    }
+
+    public function updateOrderStatusWithException(Order $order, \Exception $exception)
+    {
+        $this->saveUpdateOrderStatus($order, $order::STATUS_ERROR, $exception);
+    }
+
+    /**
+     * @param Order $order
+     * @param Stripe\Order $stripeOrder
+     */
+    public function updateOrderStatus(Order $order, Stripe\Order $stripeOrder): void
+    {
+        if (in_array($stripeOrder->status, $order->statuses))
         {
-            $status = array_search($paymentIntent->status, $order->statuses);
-            $this->saveUpdateOrderStatus($order, $status, $paymentIntent);
+            $status = array_search($stripeOrder->status, $order->statuses);
+            $this->saveUpdateOrderStatus($order, $status, $stripeOrder);
         }
         else
-            throw new \InvalidArgumentException("Unknown status [{$paymentIntent->status}]");
+            throw new \InvalidArgumentException("Unknown status [{$stripeOrder->status}]");
     }
 
     /**
      * @param Order $order
      * @param string $status
-     * @param Stripe\PaymentIntent $paymentIntent
+     * @param $info
      */
-    public function saveUpdateOrderStatus(Order $order, string $status, Stripe\PaymentIntent $paymentIntent)
+    public function saveUpdateOrderStatus(Order $order, string $status, $info): void
     {
         $order->status_id = (new Status)->firstOrFail('name', '=', $status)->id;
-        $order->info = $paymentIntent;
+        $order->info = $info;
 
         $order->save();
     }

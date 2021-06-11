@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Order\PayRequest;
 use App\Http\Requests\Api\Order\StoreRequest;
 use App\Http\Resources\Api\OrderResource;
 use App\Http\Responses\Api\Response;
@@ -13,6 +14,7 @@ use App\Services\CartService;
 use App\Services\CustomerService;
 use App\Services\NPDepartmentService;
 use App\Services\OrderService;
+use App\Services\StripeOrderService;
 use App\Services\StripePaymentIntentService;
 use App\Services\StripeTokenService;
 use Illuminate\Http\Request;
@@ -48,9 +50,9 @@ class OrderController extends Controller
     protected $orderService;
 
     /**
-     * @var StripeTokenService
+     * @var StripeOrderService
      */
-    protected $stripeTokenService;
+    protected $stripeOrderService;
 
     public function __construct(
                                 CartService $cartService,
@@ -58,14 +60,14 @@ class OrderController extends Controller
                                 NPDepartmentService $departmentService,
                                 StripePaymentIntentService $stripePaymentIntentService,
                                 OrderService $orderService,
-                                StripeTokenService $stripeTokenService)
+                                StripeOrderService $stripeOrderService)
     {
         $this->cartService = $cartService;
         $this->customerService = $customerService;
         $this->departmentService = $departmentService;
         $this->stripePaymentIntentService = $stripePaymentIntentService;
         $this->orderService = $orderService;
-        $this->stripeTokenService = $stripeTokenService;
+        $this->stripeOrderService = $stripeOrderService;
     }
 
 
@@ -105,15 +107,36 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param OrderService $service
-     * @param int $order_id
+     * @param PayRequest $request
+     * @param Order $order
+     *
+     * @return Response
+     * @throws \Exception
      */
-    public function updateStatus(Request $request, OrderService $service, int $order_id)
+    public function pay(PayRequest $request, Order $order): Response
     {
-        /** @var Order $order */
-        $order = Order::query()->findOrFail($order_id);
+        $token = $request->getToken();
 
-        $service->updateOrderStatus($order);
+        if ($this->orderService->isPayed($order))
+        {
+            return Response::make()->addErrorMessage('api.orders.is_payed', 409);
+        }
+
+        if ($this->orderService->isError($order))
+        {
+            return Response::make()->addErrorMessage('api.orders.error', 409);
+        }
+
+        try {
+            $updateStripeOrder = $this->stripeOrderService->pay($order, $token);
+            $this->orderService->updateOrderStatus($order, $updateStripeOrder);
+        } catch (\Exception $exception) {
+            $this->orderService->updateOrderStatusWithException($order, $exception);
+            throw $exception;
+        }
+
+        $resource = OrderResource::make($order);
+
+        return Response::make($resource)->addSuccessMessage('api.orders.pay_success', 200);
     }
 }
