@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@vue-stripe/vue-stripe": "^4.2.4",
         "vue-cookies": "^1.7.4",
         "vue-router": "^3.5.1",
         "vue-select": "^3.11.2",

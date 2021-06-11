@@ -41,7 +41,30 @@ export default {
 
                 throw e
             }
-        }
+        },
+        async payOrder ({commit}, {order, token}) {
+            commit('CLEAR_NOTIFICATIONS')
+            commit('SET_LOADING', true)
+
+            try {
+
+                const order = await axios.post('/api/orders/' + order.id, {
+                    token: token
+                })
+
+                if (order.data.messages) {
+                    commit('SET_NOTIFICATIONS', order.data.messages)
+                }
+
+                commit('SET_ORDER', order.data.result)
+                commit('SET_LOADING', false)
+            } catch (e) {
+                commit('SET_NOTIFICATIONS', e.response.data.messages)
+                commit('SET_LOADING', false)
+
+                throw e
+            }
+        },
     },
     getters: {
         order (state) {
