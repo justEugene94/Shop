@@ -106,12 +106,12 @@ class CartService
     public function getAmount(string $cookieId): int
     {
         $amount = 0;
-        Cart::query()
-            ->with('product')
-            ->where('cookie_id', '=', $cookieId)
-            ->each(function (Cart $cart) use ($amount) {
-                $amount += $cart->qty * $cart->product->price;
-            });
+
+        $cart = Cart::query()->with('product')->where('cookie_id', '=', $cookieId)->get();
+
+        foreach ($cart as $item) {
+            $amount += $item->qty * $item->product->price;
+        }
 
         return $amount;
     }
