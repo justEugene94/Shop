@@ -61,7 +61,11 @@ class Handler extends ExceptionHandler
             return $this->convertValidationExceptionToResponse($e, $request);
         }
 
-        return $this->JsonResponse($request, $e);
+        if ($request->expectsJson()) {
+            return $this->JsonResponse($request, $e);
+        }
+
+        return $this->prepareResponse($request, $e);
     }
 
     /**
