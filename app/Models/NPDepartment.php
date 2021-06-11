@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
+ * @property int $city_id
  * @property string $np_id
  * @property string $department
  *
@@ -26,6 +27,7 @@ class NPDepartment extends Model
 
     /** @var array */
     protected $fillable = [
+        'city_id',
         'np_id',
         'department',
     ];
