@@ -27,6 +27,7 @@
                     </v-list-item-title>
                     <v-list-item-subtitle v-html="'Quantity: ' + cartItem.qty"></v-list-item-subtitle>
                     <div>Price: <strong>{{ cartItem.product.price }}</strong></div>
+                    <div>Total: <strong>{{ cartItem.product.price * cartItem.qty }}</strong></div>
                 </v-list-item-content>
 
                 <v-list-item-action>
