@@ -42,7 +42,10 @@ class NPDepartmentService
             'department' => $arrayNP['DescriptionRu'],
         ]);
 
-        $customer->npDepartments()->attach($department->id);
+        if (!$customer->npDepartments()->firstWhere('np_department_id', '=', $department->id))
+        {
+            $customer->npDepartments()->attach($department->id);
+        }
 
         return $department;
     }

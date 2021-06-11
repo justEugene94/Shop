@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\NPDepartment;
 use App\Models\Order;
@@ -38,19 +39,29 @@ class OrderService
 
     /**
      * @param Order $order
-     * @param array $cart
+     * @param string $cookieId
+     *
+     * @return $this
      */
-    public function addProductsInOrder(Order $order, array $cart): void
+    public function addProductsInOrder(Order $order, string $cookieId): OrderService
     {
-        foreach ($cart as $id => $cartProduct)
+        /** @var Cart $cart */
+        $cart = Cart::query()
+            ->select('id', 'product_id', 'qty')
+            ->where('cookie_id', '=', $cookieId)
+            ->get();
+
+        foreach ($cart as $cartProduct)
         {
             /** @var Product $product */
-            $product = Product::query()->findOrFail($id);
+            $product = Product::query()->findOrFail($cartProduct->product_id);
 
-            $order->products()->attach($product->id, ['qty' => $cartProduct['quantity']]);
+            $order->products()->attach($product->id, ['qty' => $cartProduct->qty]);
 
-            $this->reduceQty($product, $cartProduct['quantity']);
+            $this->reduceQty($product, $cartProduct->qty);
         }
+
+        return $this;
     }
 
     /**

@@ -95,7 +95,7 @@ class OrderController extends Controller
 
         $order = $this->orderService->create($customer, $department, $paymentIntent, $amount);
 
-        $this->orderService->addProductsInOrder($order, $request->session()->get('cart'));
+        $this->orderService->addProductsInOrder($order, $request->getCookieId());
 
         DB::commit();
 

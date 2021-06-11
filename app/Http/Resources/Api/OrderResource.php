@@ -26,7 +26,7 @@ class OrderResource extends JsonResource
             'id'   => $this->resource->id,
             'customer' => CustomerResource::make($this->resource->customer),
             'amount' => $this->resource->amount,
-            'status' => $this->resource->status,
+            'status' => $this->resource->status->name,
             'products' => ProductCollectionResource::collection($this->resource->products)
         ];
     }
