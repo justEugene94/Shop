@@ -12,7 +12,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached
+      - ${APP_CODE_PATH_HOST}:/var/www:cached
     links:
       - workspace
       - php
@@ -26,9 +26,8 @@ services:
       - 9000
     links:
       - mysql
-      - redis
     volumes:
-      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached
+      - ${APP_CODE_PATH_HOST}:/var/www:cached
     tty: true
     stdin_open: true
     environment:
@@ -54,51 +53,6 @@ services:
     networks:
       - code-network
 
-  redis:
-    build: ./redis
-    container_name: shop_redis
-    volumes:
-      - ./redis/data:/data
-    ports:
-      - 6379:6379
-    networks:
-      - code-network
-
-  laravel-horizon:
-    build:
-      context: ./laravel-horizon
-      args:
-        - CHANGE_SOURCE=false
-        - LARADOCK_PHP_VERSION=7.4
-        - INSTALL_BZ2=false
-        - INSTALL_GD=false
-        - INSTALL_GMP=false
-        - INSTALL_GNUPG=false
-        - INSTALL_LDAP=false
-        - INSTALL_IMAGEMAGICK=true
-        - INSTALL_PGSQL=false
-        - INSTALL_ZIP_ARCHIVE=false
-        - INSTALL_BCMATH=true
-        - INSTALL_MEMCACHED=false
-        - INSTALL_SOCKETS=false
-        - INSTALL_YAML=false
-        - INSTALL_CASSANDRA=false
-        - INSTALL_PHPREDIS=true
-        - INSTALL_MONGO=false
-        - INSTALL_FFMPEG=true
-        - INSTALL_AUDIOWAVEFORM=false
-        - PUID=1000
-        - PGID=1000
-        - IMAGEMAGICK_VERSION=false
-    container_name: shop_laravel_horizon
-    volumes:
-      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
-      - ./laravel-horizon/supervisord.d:/etc/supervisord.d
-    depends_on:
-      - workspace
-    networks:
-      - code-network
-
   workspace:
     build: ./workspace
     container_name: shop_workspace
@@ -107,6 +61,6 @@ services:
     links:
       - mysql
     volumes:
-      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached
+      - ${APP_CODE_PATH_HOST}:/var/www:cached
     networks:
       - code-network
