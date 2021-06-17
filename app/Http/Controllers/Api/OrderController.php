@@ -16,8 +16,6 @@ use App\Services\NPDepartmentService;
 use App\Services\OrderService;
 use App\Services\StripeOrderService;
 use App\Services\StripePaymentIntentService;
-use App\Services\StripeTokenService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Stripe;
@@ -119,12 +117,12 @@ class OrderController extends Controller
 
         if ($this->orderService->isPayed($order))
         {
-            return Response::make()->addErrorMessage('api.orders.is_payed', 409);
+            return Response::make()->addErrorMessage(__('api.orders.is_payed'), 409);
         }
 
         if ($this->orderService->isError($order))
         {
-            return Response::make()->addErrorMessage('api.orders.error', 409);
+            return Response::make()->addErrorMessage(__('api.orders.error'), 409);
         }
 
         try {
@@ -137,6 +135,6 @@ class OrderController extends Controller
 
         $resource = OrderResource::make($order);
 
-        return Response::make($resource)->addSuccessMessage('api.orders.pay_success', 200);
+        return Response::make($resource)->addSuccessMessage(__('api.orders.pay_success'), 200);
     }
 }

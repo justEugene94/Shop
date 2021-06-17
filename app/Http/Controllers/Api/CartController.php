@@ -59,7 +59,7 @@ class CartController extends Controller
 
         $this->service->fill($product, $request->getCookieId(), $request->getQty(), $request->getRewrite());
 
-        return Response::make()->addSuccessMessage('cart.add.success', JsonResponse::HTTP_CREATED);
+        return Response::make()->addSuccessMessage(__('cart.add.success'), JsonResponse::HTTP_CREATED);
     }
 
     /**
@@ -74,7 +74,7 @@ class CartController extends Controller
 
         $this->service->delete($product, $request->getCookieId());
 
-        return Response::make()->addSuccessMessage('cart.delete.success', JsonResponse::HTTP_OK);
+        return Response::make()->addSuccessMessage(__('cart.delete.success'), JsonResponse::HTTP_OK);
     }
 
     /**
@@ -86,7 +86,7 @@ class CartController extends Controller
     {
         $this->service->clear($request->getCookieId());
 
-        return Response::make()->addSuccessMessage('cart.clear.success', JsonResponse::HTTP_OK);
+        return Response::make()->addSuccessMessage(__('cart.clear.success'), JsonResponse::HTTP_OK);
     }
 
     /**
