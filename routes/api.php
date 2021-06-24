@@ -20,22 +20,53 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-$router->get('promo-products', 'Api\ProductController@getPromo')->name('api.promo.products');
+$router->get('promo-products', [
+    'as' => 'api.promo.products',
+    'uses' => 'Api\ProductController@getPromo',
+]);
 
 /** Products */
 $router->apiResource('products', 'Api\ProductController')->only(['index', 'show']);
 
 /** Cart */
-$router->get('/cart', 'Api\CartController@index')->name('api.cart');
-$router->post('/cart/add', 'Api\CartController@add')->name('api.cart.add');
-$router->delete('/cart/delete', 'Api\CartController@delete')->name('api.cart.delete');
-$router->delete('/cart/clear', 'Api\CartController@delete')->name('api.cart.clear');
-$router->get('/cart/products-count', 'Api\CartController@productsCount')->name('api.cart.products.count');
+$router->get('/cart', [
+    'as' => 'api.cart',
+    'uses' =>'Api\CartController@index',
+]);
+$router->post('/cart/add', [
+    'as' => 'api.cart.add',
+    'uses' =>'Api\CartController@add',
+]);
+$router->delete('/cart/delete', [
+    'as' => 'api.cart.delete',
+    'uses' =>'Api\CartController@delete',
+]);
+$router->delete('/cart/clear', [
+    'as' => 'api.cart.clear',
+    'uses' =>'Api\CartController@clear',
+]);
+$router->get('/cart/products-count', [
+    'as' => 'api.cart.products.count',
+    'uses' =>'Api\CartController@productsCount',
+]);
 
 /** Nova Poshta */
-$router->get('/nova-poshta/cities', 'Api\NovaPoshtaController@getCities')->name('api.nova-poshta.cities');
-$router->get('/nova-poshta/warehouses', 'Api\NovaPoshtaController@getWarehouses')->name('api.nova-poshta.warehouses');
+$router->get('/nova-poshta/cities', [
+    'as' => 'api.nova-poshta.cities',
+    'uses' =>'Api\NovaPoshtaController@getCities',
+]);
+$router->get('/nova-poshta/warehouses', [
+    'as' => 'api.nova-poshta.warehouses',
+    'uses' =>'Api\NovaPoshtaController@getWarehouses',
+]);
 
 /** Order */
-$router->post('/orders', 'Api\OrderController@store')->name('api.orders.store');
-$router->post('/orders/{order}', 'Api\OrderController@pay')->name('api.orders.pay');
+$router->post('/orders', [
+    'as' => 'api.orders.store',
+    'uses' =>'Api\OrderController@store',
+    'middleware' => 'check.products.in.cart',
+]);
+$router->post('/orders/{order}', [
+    'as' => 'api.orders.pay',
+    'uses' =>'Api\Api\OrderController@pay',
+]);

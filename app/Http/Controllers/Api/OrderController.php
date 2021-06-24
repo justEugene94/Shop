@@ -77,11 +77,6 @@ class OrderController extends Controller
      */
     public function store(StoreRequest $request): Response
     {
-        if (!$this->cartService->checkProducts($request->getCookieId()))
-        {
-            throw new BadRequestException('No products in cart');
-        }
-
         $amount = $this->cartService->getAmount($request->getCookieId());
 
         DB::beginTransaction();

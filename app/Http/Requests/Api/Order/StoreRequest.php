@@ -7,6 +7,7 @@ namespace App\Http\Requests\Api\Order;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
+ * @property string $cookie_id
  * @property string $first_name
  * @property string $last_name
  * @property string $email
