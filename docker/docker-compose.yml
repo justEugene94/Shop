@@ -12,7 +12,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ${APP_CODE_PATH_HOST}:/var/www:cached
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached
     links:
       - workspace
       - php
@@ -26,8 +26,9 @@ services:
       - 9000
     links:
       - mysql
+      - redis
     volumes:
-      - ${APP_CODE_PATH_HOST}:/var/www:cached
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached
     tty: true
     stdin_open: true
     environment:
@@ -53,6 +54,16 @@ services:
     networks:
       - code-network
 
+  redis:
+    build: ./redis
+    container_name: shop_redis
+    volumes:
+      - ./redis/data:/data
+    ports:
+      - 6379:6379
+    networks:
+      - code-network
+
   workspace:
     build: ./workspace
     container_name: shop_workspace
@@ -61,6 +72,6 @@ services:
     links:
       - mysql
     volumes:
-      - ${APP_CODE_PATH_HOST}:/var/www:cached
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached
     networks:
       - code-network
