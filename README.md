@@ -22,6 +22,9 @@ sudo service nginx stop
 sudo service mysql stop
 
 cd docker/
+
+cp .env.example .env
+
 docker-compose up --build
 ```
 
