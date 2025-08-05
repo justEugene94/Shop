@@ -16,9 +16,18 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
         echo "alias composer='composer'" >> /root/.bashrc && \
         composer
 
+RUN apk add --no-cache nodejs npm
+
 RUN apk add --no-cache bash ffmpeg
+
+ENV NPM_CONFIG_CACHE=/tmp/.npm
+ENV HOME=/tmp
+
+RUN mkdir -p /tmp/.npm /tmp/.config \
+    && chmod -R 777 /tmp/.npm /tmp/.config \
+    && echo 'cache=/tmp/.npm' > /etc/npmrc
 
 WORKDIR /var/www
 
 RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
-RUN apk --no-cache add shadow && usermod -u 1000 www-data
+RUN apk --no-cache add shadow

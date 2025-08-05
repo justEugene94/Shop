@@ -35,7 +35,11 @@ RUN apk --update add wget \
   bash
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl
-RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
+RUN pecl channel-update pecl.php.net  \
+RUN pecl install memcached-3.1.5 || pecl install memcached-3.1.4
+RUN pecl install mcrypt-1.0.3 || pecl install mcrypt-1.0.2
+RUN pecl install mongodb-1.9.2 || pecl install mongodb-1.8.0
+RUN docker-php-ext-enable memcached mongodb
 
 # Add a non-root user to help install ffmpeg:
 ARG PUID=1000
@@ -154,7 +158,7 @@ RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
 # Install MongoDB drivers:
 ARG INSTALL_MONGO=false
 RUN if [ ${INSTALL_MONGO} = true ]; then \
-  pecl install mongodb \
+  pecl install mongodb-1.10.0 \
   && docker-php-ext-enable mongodb \
   ;fi
 
