@@ -47,13 +47,13 @@ class ProductTest extends TestCase
     public function testShowReturnsProduct()
     {
         /** @var Product $product */
-        $product = factory(Product::class, 1)->create([
+        $product = factory(Product::class)->create([
             'id' => 12,
             'title' => 'Test Product 12',
             'description' => 'Test Product 12 description',
             'price' => 100,
             'quantity' => 10,
-        ])->first();
+        ]);
 
         $response = $this->getJson('/api/products/12');
 
