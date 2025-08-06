@@ -55,6 +55,6 @@ class AddRequest extends CartRequest
      */
     public function getRewrite(): bool
     {
-        return $this->input('rewrite');
+        return $this->input('rewrite', false);
     }
 }
