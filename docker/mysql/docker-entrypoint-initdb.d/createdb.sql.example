@@ -3,4 +3,7 @@ GRANT ALL ON `shop`.* TO 'shop'@'%' ;
 
 USE shop_loc;
 
+CREATE DATABASE IF NOT EXISTS `test_shop` ;
+GRANT ALL ON `test_shop`.* TO 'shop'@'%' ;
+
 FLUSH PRIVILEGES ;
