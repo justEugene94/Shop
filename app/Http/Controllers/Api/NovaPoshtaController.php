@@ -12,6 +12,13 @@ use Daaner\NovaPoshta\Models\Address;
 
 class NovaPoshtaController extends Controller
 {
+    protected $address;
+
+    public function __construct(Address $address)
+    {
+        $this->address = $address;
+    }
+
     /**
      * @param GetCitiesRequest $request
      *
@@ -19,8 +26,7 @@ class NovaPoshtaController extends Controller
      */
     public function getCities(GetCitiesRequest $request): Response
     {
-        $address = new Address;
-        $cities = $address->getCities($request->getCity(), true);
+        $cities = $this->address->getCities($request->getCity(), true);
 
         return Response::make($cities['result']);
     }
@@ -32,8 +38,7 @@ class NovaPoshtaController extends Controller
      */
     public function getWarehouses(GetWarehousesRequest $request): Response
     {
-        $address = new Address;
-        $warehouses = $address->getWarehouses($request->getCity());
+        $warehouses = $this->address->getWarehouses($request->getCity());
 
         return Response::make($warehouses['result']);
     }
